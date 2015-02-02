@@ -1,0 +1,15 @@
+<% include layouts/ccdefault.ejs %>
+			<section data-ng-view style="padding:10px;">
+			  <script type="text/javascript">
+			  {	  
+			  window.user = <%- user %>;
+			  window.role = <%- role %>;
+			  }
+			  </script>
+			</section>
+	
+    <!--TODO footer commented for time being <div data-ng-include="'views/ccfooter.html'"></div>-->
+    <% include includes/ccfoot.ejs %>
+    </div>
+  </body>
+</html>

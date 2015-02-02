@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" itemscope="itemscope" itemtype="http://schema.org/Product">
+<% include ../includes/cchead.ejs %>
+	<body>
+		<div class="pull-right">
+		<a href="/signup"> Sign up</a>
+		</div>
+
+		<form action="/users" method="post" class="signup form-horizontal">
+			<div class="control-group">
+			  <label for="name" class="control-label">Full name</label>
+			  <div class="controls"></div>
+			  	<input id="name" type="text" name="name" placeholder="name"/>
+			</div>
+			<div class="control-group">
+			  <label for="email" class="control-label">Email</label>
+			  <div class="controls"></div>
+			  	<input id="email" type="text" name="email" placeholder="email"/>
+			</div>
+			<div class="control-group">
+			  <label for="username" class="control-label">Username</label>
+			  <div class="controls"></div>
+			  	<input id="username" type="text" name="username" placeholder="username"/>
+			</div>
+			<div class="control-group">
+			  <label for="password" class="control-label">Password</label>
+			  <div class="controls">
+			    <input id="password" type="password" name="password" placeholder="Password"/>
+			  </div>
+			</div>
+			<div>
+			 <button type="submit" class="signInButton">Sign Up</button>
+			</div>
+		</form>
+
+ </body>
+</html>

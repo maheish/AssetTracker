@@ -1,0 +1,133 @@
+/*
+ Blog controller
+ */
+
+
+// To Create Blogs
+function AssetAdminController($scope, $route, $modal, $routeParams,Global,Assets) {
+
+    /***********************************************************************************
+    Static Contents for Assets Page
+    ***********************************************************************************/
+    $scope.global = Global;
+    $scope.assetDataObject = [{assetname:'iPhone6',ostype:'iOS'},{devicename:'S3',ostype:'Android'}];
+    /* Filter Options*/
+    $scope.filterByRegion = "region";
+    $scope.filterByCategory = "category";
+
+    /* Sort Options*/
+    $scope.tagsText = "Tags";
+    $scope.descriptionText = "Description";
+    $scope.uploadText = "Upload File";
+    $scope.regionText = "Region";
+
+
+    /***********************************************************************************
+    Variable Declaration for Blog Page
+    ***********************************************************************************/
+    $scope.ostypesList=[{title:'iOS',value:'iOS'},{title:'Android',value:'Android'},{title:'MacMini',value:'MacMini'}]
+
+    $scope.asset = {
+        assetname: '',
+        ostype: '',
+        assetno: '',
+        description: '',
+        region: '',
+    };
+
+    /* For Pagination Control*/
+
+    $scope.currentPage = 1;
+    $scope.maxSize = 5;
+
+    $scope.clearInputField = function(tagid) {
+        document.getElementById(tagid).innerHTML =
+            document.getElementById(tagid).innerHTML;
+    };
+
+    /***********************************************************************************
+    Functions for Blog Page
+    ***********************************************************************************/
+
+    /* To reset the form data*/
+    $scope.reset = function() {
+        $scope.asset = {
+        assetname: '',
+        ostype: '',
+        assetno: '',
+        description: '',
+        region: '',
+        };
+    };
+
+
+
+    /*Function to add assets to the selected region*/
+    $scope.createAssets = function(index) {
+        
+        var asset = new Assets($scope.asset);
+
+        asset.$save(function(response) {
+                alert("Asset Added Succesfully");
+        });
+
+    };
+
+    $scope.loadAssets = function(index) {
+        Assets.query({
+           // 'eventId': $scope.events[index]._id
+        }, function(response) {
+            $scope.assetDataObject=response;
+        });
+    };
+   
+$scope.loadAssets();
+    /*To remove blog by admin*/
+    // $scope.remove = function(articleIndex) {
+
+    //     var article = $scope.articles[articleIndex];
+    //     Articles.delete({
+    //         articleId: article._id
+    //     }, function() {
+    //         $scope.articles.splice(articleIndex, 1);
+
+    //     });
+    // };
+    /*To open modal dialog*/
+
+    $scope.open = function(index) {
+
+        $scope.articleIndex = index;
+
+        var modalInstance = $modal.open({
+            templateUrl: 'deleteDialog-Admin',
+            controller: ModalInstanceCtrl,
+            resolve: {
+                items: function() {
+
+                }
+            }
+
+        });
+        modalInstance.result.then(function(selectedItem) {
+            $scope.remove($scope.articleIndex);
+
+        }, function() {
+            $log.info('Modal dismissed at: ' + new Date());
+
+        });
+
+    };
+}
+
+function ModalInstanceCtrl($scope, $modalInstance, items) {
+
+
+    $scope.ok = function() {
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function() {
+        $modalInstance.dismiss('cancel');
+    };
+}

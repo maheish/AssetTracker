@@ -1,0 +1,258 @@
+<div data-ng-controller="UserAdminController" id="globalNews" ng-init="find()">
+    <ol class="breadcrumb" style="background-color: white;margin:0;padding:10px 0 30px 20px;">
+        <li><a href="/">Home</a></li>
+        <li class="active">User Admin</li>
+    </ol>
+<!--  Container for Regions-->
+    <div class="blogs-container">
+        <fieldset class="container-border">
+            <legend class="container-border"> <h4> Regions </h4></legend>
+            
+            <button type="button" class="btn btn-primary" style="width:120px; float:right;"  data-toggle="modal" data-target="#regionform">Add Region</button>
+        
+            <div id="scrollArea" style="clear:both">
+          
+                <div class="" data-ng-repeat="item in regions">
+                    <div class="col-md-3 content-container" style="margin-left:0px;">
+                   {{item.city}}, {{item.country}}    
+                    </div>
+                    
+                     <div class="col-md-1 content-container">
+                    
+                     <a ng-click="removeRegion($index,1)" ng-show="item.username!=global.user" style="cursor:pointer"> Delete</a> 
+                    </div>
+                    <hr  style="border:solid #cacbce; border-width:1px 0 0; height:0; clear:both; padding:5px;">
+                </div>                             
+            </div>
+        </fieldset>
+    </div>
+
+    <div style="clear:both; padding-top:10px;padding-bottom:20px;">
+       
+        <a  type="button" class="btn btn-primary" style="width:140px; float:right;text-decoration:underline"  href="#!bulkUpdate"> Bulk Update >></a>
+         <button type="button" class="btn btn-primary" style="width:100px; float:right; margin-right:20px;margin-bottom:10px;"ng-click="addUser()" data-toggle="modal" data-target="#userform">Add User</button>
+    </div>
+<!--  Container for Admin Users-->
+
+     <div class="blogs-container"  style="clear:both;">
+        <fieldset class="container-border">
+            <legend class="container-border"> <h4> Admin Users </h4></legend>
+            <input class="searchbar" type="text" placeholder="Search..." ng-model="adminsearchText">
+            <button style="border:none;background:none;margin-left:-36px;color:#CCCCCC;"><i class="glyphicon glyphicon-search"></i></button>
+           
+            <div style="padding-top:25px;" >
+                    <div class="col-md-3 content-container" style="margin-left:0px;">
+                        <h4 style="color:#0088CC">User Name</h4>
+                    </div>
+                    <div class="col-md-3 content-container">
+                        <h4 style="color:#0088CC">Region</h4>
+                    </div>
+                    <div class="col-md-1 content-container">
+                        <h4 style="color:#0088CC">Role</h4>
+                    </div>
+                    <div class="col-md-2 content-container">
+                        <h4 class="centreAlign" style="color:#0088CC; padding-left:35px;">Login Status</h4>
+                    </div>
+                    <div class="col-md-1 content-container">
+                        <h4 style="color:#0088CC">Chat </h4>
+                    </div>
+                     <div class="col-md-2 content-container">
+                        <h4 style="color:#0088CC"> Action</h4>
+                    </div>
+                    <hr  style="border:solid #cacbce; border-width:1px 0 0; height:0; clear:both; padding:5px;">
+                </div>
+            <div id="scrollArea">
+          
+                <div class="" data-ng-repeat="item in adminUsers | filter:adminsearchText">
+                    <div class="col-md-3 content-container" style="margin-left:0px;">
+                   {{item.username}} 
+                    </div>
+                     <div class="col-md-3 content-container" style="margin-left:0px;">
+                      <span data-ng-repeat="region in item.region"> {{region}} <span ng-show="!$last">,</span></span> 
+                    </div>
+                    <div class="col-md-1 content-container">
+                     {{item.role | loginString:"Global Admin":"User":"Regional Admin"}}
+                    </div>
+                    <div class="col-md-2 content-container">
+                    <img class="centreAlign" align="middle" width="25" height="25" ng-src="{{item.login_status | loginString:'../../img/icons/login.jpg':'../../img/icons/logout.png'}}"/>
+                    <!-- {{item.login_status | loginString:"login.png":"Not Logged-in"}} -->
+                    </div>
+                    <div class="col-md-1 content-container">
+                     <a ng-click="changeChatPermission(item)" style="cursor:pointer"> {{item.chat_status | loginString:"Disable":"Enable" }} </a> 
+                    </div>
+                     <div class="col-md-1 content-container">
+                     <a ng-click="edit(item)" data-toggle="modal" data-target="#userform" style="cursor:pointer"> Edit</a> <span  ng-show="item.role!=1">/</span>
+                     <a ng-click="remove($index,1)" ng-show="item.role!=1" style="cursor:pointer"> Delete</a> 
+                    </div>
+                    <hr  style="border:solid #cacbce; border-width:1px 0 0; height:0; clear:both; padding:5px;">
+                </div>
+                
+              
+            </div>
+
+        </fieldset>
+    </div>
+
+<!--  Container for Generic users-->
+
+    <div class="blogs-container">
+        <fieldset class="container-border">
+            <legend class="container-border"> <h4> Users </h4></legend>
+            <input class="searchbar"type="text" placeholder="Search..." ng-model="searchText">
+            <button style="border:none;background:none;margin-left:-36px;color:#CCCCCC"><i class="glyphicon glyphicon-search"></i></button>
+            <div style="padding-top:25px;" >
+                    <div class="col-md-3 content-container" style="margin-left:0px;">
+                        <h4 style="color:#0088CC">User Name</h4>
+                    </div>
+                    <div class="col-md-3 content-container">
+                        <h4 style="color:#0088CC">Region</h4>
+                    </div>
+                    <div class="col-md-1 content-container">
+                        <h4 style="color:#0088CC">Role</h4>
+                    </div>
+                    <div class="col-md-2 content-container">
+                        <h4 class="centreAlign" style="color:#0088CC; padding-left:35px;">Login Status</h4>
+                    </div>
+                    <div class="col-md-1 content-container">
+                        <h4 style="color:#0088CC">Chat </h4>
+                    </div>
+                     <div class="col-md-2 content-container">
+                        <h4 style="color:#0088CC"> Action</h4>
+                    </div>
+                    <hr  style="border:solid #cacbce; border-width:1px 0 0; height:0; clear:both; padding:5px;">
+                </div>
+            <div id="scrollArea">
+          
+                <div class="" data-ng-repeat="item in testUsers | filter:searchText">
+                    <div class="col-md-3 content-container" style="margin-left:0px;">
+                   {{item.username}} 
+                    </div>
+                     <div class="col-md-3 content-container" style="margin-left:0px;">
+                   <span data-ng-repeat="region in item.region"> {{region}} <span ng-show="!$last">,</span></span> 
+                    </div>
+                    <div class="col-md-1 content-container">
+                     {{item.role | loginString:"Global Admin":"User":"Regional Admin"}}
+                    </div>
+                    <div class="col-md-2 content-container">
+                    <img class="centreAlign" align="middle" width="25" height="25" ng-src="{{item.login_status | loginString:'../../img/icons/login.jpg':'../../img/icons/logout.png'}}"/>
+                    <!-- {{item.login_status | loginString:"login.png":"Not Logged-in"}} -->
+                    </div>
+                    <div class="col-md-1 content-container">
+                     <a ng-click="changeChatPermission(item)" style="cursor:pointer"> {{item.chat_status | loginString:"Disable":"Enable" }} </a> 
+                    </div>
+                     <div class="col-md-1 content-container">
+                     <a ng-click="edit(item)" data-toggle="modal" data-target="#userform" style="cursor:pointer"> Edit</a> <span>/</span>
+                     <a ng-click="remove($index,0)" style="cursor:pointer"> Delete</a> 
+                    </div>
+                    <hr  style="border:solid #cacbce; border-width:1px 0 0; height:0; clear:both; padding:5px;">
+                </div>
+                
+              
+            </div>
+
+        </fieldset>
+    </div>
+    <!-- MODAL WINDOWS-->
+    <div class="modal fade" id="userform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel">{{dialogTitle}}</h3>
+                </div>
+                <div class="modal-body" >
+                    <form name="userform" novalidate role="form" >
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">User Name</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <input id="usernameText" type="text" size="30" name="name" data-ng-model="user.username"    class="form-control" required>
+                                    <small class="error" ng-show="userform.name.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">Role</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <select class="col-xs-12 col-sm-12 col-md-12" data-ng-model="user.role"  name="role" style="height:30px;" required>
+                                        <option data-ng-repeat="item in roles" value= {{item.value}}>{{item.title}}</option>
+                                    </select>
+                                    <small class="error" ng-show="userform.role.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row " ng-show="user.role!=1">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">Regions</label>
+                                <div class="col-sm-6 col-md-5 ">
+
+                                <div ng-repeat="region in regionsdropdown" >
+                                  <label><input
+                                    type="checkbox"
+                                   
+                                    value="{{region.city}}"
+                                    ng-checked="selectedRegion.indexOf(region.city) > -1"
+                                    ng-click="toggleSelection(region.city)"
+                                  > {{region.city}}<span ng-show='region.country'>, {{region.country}}</span></label>
+                                </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <!--   <button type="button" class="btn btn-danger" ng-click="reset() ">Reset</button> -->
+                           <!--  <input type="submit"  class="btn btn-primary" > -->
+                             <button type="button" class="btn btn-primary" style="width:80px;"  ng-click="create()" ng-show="!editableFlag">Submit</button>
+                             <button type="button" class="btn btn-primary" style="width:80px;"  ng-click="update()" ng-show="editableFlag">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <div class="modal fade" id="regionform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title" id="myModalLabel">Add Region</h3>
+                </div>
+                <div class="modal-body" >
+                    <form name="regionform" novalidate role="form" >
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">City</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <input id="cityText" type="text" size="30" name="city" data-ng-model="city"    class="form-control" required>
+                                    <small class="error" ng-show="regionform.city.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">Country</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <input id="countryText" type="text" size="30" name="country" data-ng-model="country"    class="form-control" required>
+                                    <small class="error" ng-show="regionform.country.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                          <!--   <button type="button" class="btn btn-danger" ng-click="reset() ">Reset</button> -->
+                           <!--  <input type="submit"  class="btn btn-primary" > -->
+                             <button type="button" class="btn btn-primary" style="width:80px;"  ng-click="createRegions()">Submit</button>
+                             
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ </div>   

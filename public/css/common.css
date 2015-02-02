@@ -1,0 +1,77 @@
+
+
+html { height: 100%; }
+
+body{
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+@media screen and (min-width: 1584px) {
+
+    .body-resize {
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width: 639px) {
+
+}
+
+@media only screen and (min-width: 1200px) {
+    
+}
+
+.header-text {
+    text-decoration: none;
+    font-weight: bold;
+    color: #2278ff;
+    font-size: 18px;
+}
+
+.hr-min {
+    margin: 0 0 5px 0;
+    padding: 0;
+    border-color: #a7a7a7
+}
+
+
+/* Buttons */
+
+.deleteButton{
+  position: absolute;
+  margin-right: 30px;
+  right: 10px;
+  width:80px;
+
+}
+
+.searchbar {
+width: 40%;
+margin-top: 2%;
+position: relative;
+//left: 50%;
+height: 40px;
+}
+
+.searchbarButton{
+  width: 10%;
+  margin-top: 2% !important;
+  position: relative;
+  left: 50%
+}
+
+.homepage.page.header {
+color: rgb(102, 102, 102);
+font-size: 32px;
+font-weight: 300;
+ }
+
+ .deviceOuterContainer{
+  margin-top: 25px;
+ }
+ .adminOuterView {
+  max-width: 80%;
+  margin: auto;
+  margin-top: 20px;
+}

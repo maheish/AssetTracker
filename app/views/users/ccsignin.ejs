@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" itemscope="itemscope" itemtype="http://schema.org/Product">
+<% include ../includes/cchead.ejs %>
+	 <body>
+		<div class="wrapper">
+			<div class="header">
+			<img src="../../img/cognizant.png" style="max-height:100px;"/>
+			
+				<form method="POST" action="/auhenticateUser" autocomplete="off">
+				  <p class="error"><%= message %></p>
+				    <div>
+						  <p>Your Cognizant Credentials</p>
+						  <div>
+						    <input id="username" type="text" name="userid" value="" placeholder="Associate Id" style="color: rgb(136, 136, 136); " class="input"/>
+						  </div>
+						  <div>
+						    <input type="password" id="password_box" name="password" placeholder="password" style="color: rgb(136, 136, 136); " class="input"/>
+						  </div>
+						  <div>
+						    <button type="submit" class="signInButton">Sign in</button>
+						  </div>
+
+					</div>
+				</form>
+				 
+			</div>
+			<!-- <div style="padding-top:15px;">
+				<a href="https://cs.ebay.com/cs1/eBayAdmin.dll?AsacPasswordSelfService" style="text-decoration: underline;" >Forgot your Password?</a>
+				<a href="http://watchdog2/tip" style="padding-left:10px;text-decoration: underline;"> Report issues in  TIP</a>
+			</div> -->
+			 	
+		</div>
+		<div class="footer">
+			  <p>©  All Rights Reserved</p>
+			</div>
+	 </body>
+ </html>
+
+

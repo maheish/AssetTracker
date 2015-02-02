@@ -1,0 +1,228 @@
+<!--
+  File to display the navigation items 
+  -->
+
+<header id="header" role="navigation" data-ng-controller="HeaderController" style="margin-right:0px;margin-left:0px;">
+
+    <nav class="navbar navbar-default" style="margin-bottom:0px">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> 
+                </button>
+                <a class="navbar-brand" href="#">Cognizant Asset Tracker</a>
+                <!--                <img class="navbar-brand" id="logo" src="../../img/header.png"></img>-->
+            </div>
+
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#!">Home</a>
+                    </li>
+                    <li><a href="#!">My Assets</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle hideborder" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> {{global.user}}<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li ng-show="global.role==2"><a href="" data-toggle="modal" data-target="#newsPostForm" class="hideborder"><span class="glyphicon glyphicon-user"> Users</a>
+                            </li>
+                            <li ng-show="global.role==2 || global.role==1"><a href="#!admindevices" class="hideborder"><span class="glyphicon glyphicon-phone"> Assets</a>
+                            </li>
+                            <li ng-show="global.role==2"><a href="#!adminStories" class="hideborder"><span class="glyphicon glyphicon-time"> DeviceHistory</a>
+                            </li>
+
+                            <li><a href="/ccsignout" class="hideborder"><span class="glyphicon glyphicon-log-out"> SignOut</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+
+<!-- MODAL WINDOWS-->
+<!-- Modal Dialog for Feedback Form -->
+
+<div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" data-ng-controller="HeaderController">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title" id="myModalLabel">{{formHeaderText}}</h3>
+            </div>
+            <div class="modal-body">
+                <form name="feedbackForm" novalidate role="form" data-ng-submit="create()">
+                    <div class="row ">
+                        <div class="col-md-12 col-sm-12  form-group">
+                            <label class="control-label col-sm-4 col-md-4">User Name</label>
+                            <div class="col-sm-6 col-md-6 ">
+                                <label class="control-label ">{{global.user}}</label>
+                                <!--  <input type="text" size="30" name="firstName" data-ng-model="user.firstname"    class="form-control" required>
+                                <small class="error" ng-show="feedbackForm.firstName.$error.required && submitted">Required!</small> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row ">
+                        <div class="col-md-12 col-sm-12  form-group">
+                            <label class="control-label col-sm-4 col-md-4">{{departmentText}}</label>
+                            <div class="col-sm-6 col-md-6 ">
+                                <select class="col-xs-12 col-sm-12 col-md-12" data-ng-model="user.department" name="department" style="height:30px;" required>
+                                    <option data-ng-repeat="item in department" value={ {item.value}}>{{item.value}}</option>
+                                </select>
+                                <small class="error" ng-show="feedbackForm.department.$error.required && submitted">Required!</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12 col-sm-12  form-group">
+                            <label class="control-label col-sm-4 col-md-4">{{feedbackText.title}}</label>
+                            <div class="col-sm-6 col-md-6 ">
+                                <textarea class="control-textarea" name="contents" data-ng-model="user.contents" ng-maxlength="300" required></textarea>
+                                <small class="error" ng-show="feedbackForm.contents.$error.required && submitted">Required!</small>
+                                <small class="error" ng-show="feedbackForm.contents.$error.maxlength && submitted">please enter your feedback with a maximum of 300 chars</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" ng-click="reset() ">Reset</button>
+                        <input type="submit" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Dialog for Add Blogs -->
+<div class="modal fade" id="newsPostForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" data-ng-controller="BlogController">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add Blogs</h4>
+            </div>
+            <form id="createBlog" name="createBlogForm" novalidate role="form" method="post" ng-submit="create()">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{titleText}}</label>
+
+                        <div class="col-sm-10">
+                            <input name="title" data-ng-model="blog.title" type="text" class="form-control" id="inputEmail3" placeholder="Title" required>
+                            <small class="error" ng-show="createBlogForm.title.$error.required && submitted">Required!</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{regionText}}</label>
+
+                        <div class="col-sm-10">
+                            <!--  <select data-ng-model="blog.region" name="region" class="form-control" style="width: 200px;" required>
+                                <option data-ng-repeat="region in regions" value={{region.value}}>{{region.city}}  {{region.country}}</option>
+                            </select> -->
+                            <div ng-repeat="region in regions" class="col-sm-12">
+                                <label>
+                                    <input type="checkbox" value="{{region.city}}" ng-checked="selectedRegion.indexOf(region.value) > -1" ng-click="toggleSelection(region.value)">{{region.city}}<span ng-show='region.country'>, {{region.country}}</span>
+                                </label>
+                            </div>
+                            <small class="error" ng-show="createBlogForm.region.$error.required && submitted">Required!</small>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{categoryText}}</label>
+
+                        <div class="col-sm-10">
+                            <select data-ng-model="blog.category" name="category" class="form-control" style="width: 200px;" required>
+                                <option data-ng-repeat="category in categories">{{category.val}}</option>
+                            </select>
+                            <small class="error" ng-show="createBlogForm.category.$error.required && submitted">Required!</small>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{tagsText}}</label>
+
+                        <!-- <div class="col-sm-10">
+                            <select data-ng-model="blog.tags"  class="form-control"  style="width: 200px;">
+                                <option data-ng-repeat="tag in tags">{{tag}}</option>
+                            </select>
+                        </div> -->
+                        <div class="col-sm-10">
+                            <select data-ng-model="blog.tags" name="tags" class="form-control" style="width: 200px;" required>
+                                <option data-ng-repeat="tag in tags">{{tag.val}}</option>
+                            </select>
+                            <small class="error" ng-show="createBlogForm.tags.$error.required && submitted">Required!</small>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">{{descriptionText}}</label>
+
+                        <div class="col-sm-10">
+
+                            <textarea ui-tinymce="tinymceOptions" name="descriptioneditor" ng-model="blog.description" required></textarea>
+
+                            <small class="error" ng-show="createBlogForm.descriptioneditor.$error.required && submitted">Required!</small>
+                            <small class="error" ng-show="createBlogForm.descriptioneditor.$error.maxlength && submitted">please enter your description with a maximum of 300 chars</small>
+
+                        </div>
+                    </div>
+
+                    <div id="blogUplodImage" class="form-group">
+                        <label class="col-sm-2 control-label">Upload Images</label>
+
+                        <div class="col-sm-10">
+                            <input type="file" data-ng-model="blog.uploadImage" name="uploadImage" class="btn btn-default" ng-file-blog="onFileSelect($files)" accept="image/png">
+                            <div>
+                                <label class="control-label" style="color:red; font-size:12px;">(Note: Only .png file supported)</label>
+                            </div>
+                            <!--                              <small class="error" ng-show="createBlogForm.uploadImage.$error.required && submitted">Required!</small>
+ -->
+                        </div>
+
+                    </div>
+                    <div id="blogUploadVideo" class="form-group">
+                        <label class="col-sm-2 control-label">Upload Videos</label>
+
+                        <div class="col-sm-10">
+                            <input type="file" ng-show="isSafari" data-ng-model="blog.uploadVedio" name="uploadVedio" class="btn btn-default" ng-vedio-file-select="onFileSelect($files)">
+
+                            <input type="file" ng-show="!isSafari" data-ng-model="blog.uploadVedio" name="uploadVedio" class="btn btn-default" ng-vedio-file-select="onFileSelect($files)" accept="video/*">
+                            <div>
+                                <label class="control-label" style="color:red; font-size:12px;">(Note: Video file size limited to 2 Gb)</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!--<img src="../img/loaders/loader_blue.gif" width="32px" style="margin-left:49%; margin-top:5px" id="loader" hidden>-->
+                <div style="width:100%;height:100%; backgroundColor:red;"></div>
+                <div class="modal-footer" style="clear: both;">
+                    <button type="button" class="btn btn-danger" ng-click="reset()">Reset</button>
+                    <!--                 <button type="submit" class="btn btn-primary" >Save changes</button>
+ -->
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                <div ng-show="showProgress" style="z-index:19000">
+                    <progressbar max="max" value="dynamic" class="progress-striped active"><span style="color:black; white-space:nowrap;">{{dynamic}}% completed</span>
+                    </progressbar>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+

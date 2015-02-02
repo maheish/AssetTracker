@@ -1,0 +1,43 @@
+<div class="container" ng-controller="HomeController">
+    <div class="row" style="margin-right:0px;margin-left:0px;">
+
+        <div class="row" style='margin:0px'>
+            <label class="homepage page header .col-md-6 .col-lg-6 .col-sm-6" style="margin-top:0px">Assets</label>
+            <input class="searchbar .col-md-6 .col-lg-6 .col-sm-6" style="margin:0px 0px 5px 5px; top:5px; float:right" type="text" placeholder="Search..." ng-model="assetSearchText">
+        </div>
+
+
+        <!-- Tab bar -->
+        <div class="segmented-control" style="width: 100%; color: #15a286">
+            <input type="radio" name="sc-1-1" id="sc-1-1-1" checked ng-click="ostype=''">
+            <input type="radio" name="sc-1-1" id="sc-1-1-2" ng-click="ostype='iOS'">
+            <input type="radio" name="sc-1-1" id="sc-1-1-3" ng-click="ostype='Android'">
+            <input type="radio" name="sc-1-1" id="sc-1-1-4" ng-click="ostype='Mac'">
+
+            <label for="sc-1-1-1" data-value="All">All</label>
+            <label for="sc-1-1-2" data-value="iOS">iOS</label>
+            <label for="sc-1-1-3" data-value="Android">Android</label>
+            <label for="sc-1-1-4" data-value="MAC">MAC</label>
+        </div>
+
+
+        <div>
+
+            <div ng-class-even="'evenRow'" ng-class-odd="'oddRow'" data-ng-repeat="item in assetDataObject | filter:ostype |filter:assetSearchText" style="min-height:50px;">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 content-container rowLabel" style="margin-left:0px; ver">
+                    <a ng-href="#!devicedetails/{{item}}">{{item.assetname}}</a>
+                </div>
+                <div id="rowTopRightLabel" class="col-lg-4 col-md-4 col-sm-4 col-xs-6 content-container rowLabel">
+                    {{item.ostype + ' ' +'6.0'}}
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 content-container rowLabel">
+                    <!-- {{item.assetno}} -->
+                    Maheish sundhar (290745)
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
