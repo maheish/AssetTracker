@@ -1,0 +1,27 @@
+.homepage .page.header {
+    width: 200px
+}
+
+.oddRow {
+    background-color: white;
+}
+
+.evenRow {
+    background-color: #E1F1E8;
+}
+
+@media screen and (min-width: 765px) {
+    .rowLabel {
+        margin: 15px 0px;
+    }
+}
+
+@media screen and (max-width: 765px) {
+    .rowLabel {
+        margin: 2px 0px;
+    }
+}
+
+$color-light: #C2C8CD;
+$color-dark: #515457;
+

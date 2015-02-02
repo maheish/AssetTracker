@@ -7,6 +7,8 @@ window.app.config(['$routeProvider', function ($routeProvider) {
         when('/devicedetails/:item', { templateUrl: 'views/devicedetails.html' }).
         when('/admindevices', { templateUrl: 'views/admin/devices.html' }).
         when('/adminUser', { templateUrl: 'views/admin/users.html' }).
+        when('/myassets', { templateUrl: 'views/myassets.html' }).
+    
         otherwise({redirectTo: '/'});
 }]);
 

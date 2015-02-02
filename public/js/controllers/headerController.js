@@ -60,5 +60,15 @@ function HeaderController($scope, $location, Global) {
     });
 
     
+    /*Function to set Active Menu item*/
+    
+    $scope.setActiveClass = function(_currentPath){
+        var fetchedPath = $location.path();
+            
+        if(fetchedPath == _currentPath)
+            return "active";
+        else
+            return "";
+    };
 
 }

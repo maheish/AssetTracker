@@ -1,0 +1,25 @@
+<div class="container" ng-controller="MyAssetsController">
+    <div class="row" style="margin-right:0px;margin-left:0px;">
+
+        <div class="row" style='margin:0px'>
+            <label class="homepage page header .col-md-6 .col-lg-6 .col-sm-6" style="margin-top:0px">My Assets</label>
+            <input class="searchbar .col-md-6 .col-lg-6 .col-sm-6" style="margin:0px 0px 5px 5px; top:5px; float:right" type="text" placeholder="Search..." ng-model="assetSearchText">
+        </div>
+
+
+            <div ng-class-even="'evenRow'" ng-class-odd="'oddRow'" data-ng-repeat="item in assetDataObject | filter:ostype |filter:assetSearchText" style="min-height:50px;">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 content-container rowLabel" style="margin-left:0px; ver">
+                    <a ng-href="#!devicedetails/{{item}}">{{item.assetname}}</a>
+                </div>
+                <div id="rowTopRightLabel" class="col-lg-4 col-md-4 col-sm-4 col-xs-6 content-container rowLabel">
+                    {{item.ostype + ' ' +'6.0'}}
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 content-container rowLabel">
+                    <!-- {{item.assetno}} -->
+                    Since Jan2
+                </div>
+
+            </div>
+
+    </div>
+</div>
