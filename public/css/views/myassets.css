@@ -2,23 +2,35 @@
     width: 200px
 }
 
-.oddRow {
-    background-color: white;
+.assignButton {
+    text-align: right
 }
 
-.evenRow {
-    background-color: #E1F1E8;
-}
-
-@media screen and (min-width: 765px) {
-    .rowLabel {
-        margin: 15px 0px;
+@media screen and (min-width: 767px) {
+    .assignButton {
+        margin-top: 9px;
     }
+ 
+    #assetTableRow {
+        min-height: 50px;
+    }    
 }
 
-@media screen and (max-width: 765px) {
-    .rowLabel {
-        margin: 2px 0px;
+@media screen and (max-width: 767px) {
+    #rowBottomLeftLabel {
+        margin-top: 10px;
+    }    
+    
+    .assignButton {
+        margin-top: 2px;
+    }
+    
+    #assetTableRow {
+        min-height: 70px;
+    }
+    
+    .myAssetsRowLabel{
+        margin-top: 7px;
     }
 }
 

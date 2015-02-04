@@ -75,3 +75,27 @@ font-weight: 300;
   margin: auto;
   margin-top: 20px;
 }
+
+.oddRow {
+    background-color: white;
+}
+
+.evenRow {
+    background-color: rgba(12, 119, 183, 0.14);
+}
+
+.error{
+    color:red;
+}
+
+.control-label{
+    margin-top: 8px;
+}
+
+.assetListTableBorder{
+/*
+    border-color:#0d82c0 ; 
+    border-style: solid; 
+    border-width: 1px;
+*/
+}

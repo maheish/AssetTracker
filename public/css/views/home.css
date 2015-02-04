@@ -2,14 +2,6 @@
     width: 200px
 }
 
-.oddRow {
-    background-color: white;
-}
-
-.evenRow {
-    background-color: #E1F1E8;
-}
-
 @media screen and (min-width: 765px) {
     .rowLabel {
         margin: 15px 0px;

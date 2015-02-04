@@ -12,15 +12,24 @@ var setTags = function (tags) {
 };
 
 var AssetsSchema = new Schema({
-    assetname: {type : String, default : '', trim : true}
-  , assetno: {type : String, default : '', trim : true}
- // , devicename: {type : String, default : '', trim : true}
-  , ostype: {type : String, default : '', trim : true}  
-  , region: {type : String, default : '', trim : true}  
-  , description: {type : String, default : '', trim : true}
-  , deviceowner: {type : String, default : '', trim : true}
- // , user: {type : Schema.ObjectId, ref : 'User'}
-  //, tags: {type: [], get: getTags, set: setTags}
+    asset_name: {type : String, default : '', trim : true}
+  , asset_cts_id: {type : String, default : '', trim : true}
+  , asset_type: {type : String, default : '', trim : true}  
+  , asset_model: {type : String, default : '', trim : true}  
+  , asset_platform_version: {type : String, default : '', trim : true}
+  , asset_udid: {type : String, default : '', trim : true}
+  , asset_imei: {type : String, default : '', trim : true}
+  , asset_serialno: {type : String, default : '', trim : true}
+  , asset_procurement_id: {type : String, default : '', trim : true}  
+  , asset_location: {type : String, default : '', trim : true}  
+  , asset_description: {type : String, default : '', trim : true}
+  , asset_udid: {type : String, default : '', trim : true}    
+  , asset_createdDate: {type : Date, default : new Date(), trim : true}       
+
+  , owner_id: {type : String, default : '', trim : true}  
+  , owner_name: {type : String, default : '', trim : true}  
+  , date_tagged: {type : Date, default : new Date(), trim : true}
+  , owner_project: {type : String, default : '', trim : true}      
 });
 
 

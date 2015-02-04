@@ -4,13 +4,22 @@
 
 
 // To Create Blogs
-function AssetAdminController($scope, $route, $modal, $routeParams,Global,Assets) {
+function AssetAdminController($scope, $route, $modal, $routeParams, Global, Assets) {
 
     /***********************************************************************************
     Static Contents for Assets Page
     ***********************************************************************************/
     $scope.global = Global;
-    $scope.assetDataObject = [{assetname:'iPhone6',ostype:'iOS'},{devicename:'S3',ostype:'Android'}];
+    
+    $scope.submitted = false;
+    
+    $scope.assetDataObject = [{
+        assetname: 'iPhone6',
+        ostype: 'iOS'
+    }, {
+        devicename: 'S3',
+        ostype: 'Android'
+    }];
     /* Filter Options*/
     $scope.filterByRegion = "region";
     $scope.filterByCategory = "category";
@@ -25,14 +34,41 @@ function AssetAdminController($scope, $route, $modal, $routeParams,Global,Assets
     /***********************************************************************************
     Variable Declaration for Blog Page
     ***********************************************************************************/
-    $scope.ostypesList=[{title:'iOS',value:'iOS'},{title:'Android',value:'Android'},{title:'MacMini',value:'MacMini'}]
+    $scope.ostypesList = [{
+        title: 'iOS',
+        value: 'iOS'
+    }, {
+        title: 'Android',
+        value: 'Android'
+    }, {
+        title: 'MacMini',
+        value: 'MacMini'
+    }];
+    
+
+    $scope.locationsList = [{
+        title: 'Chennai DLF',
+        value: 'CHN - DLF'
+    }, {
+        title: 'Chennai MEPZ',
+        value: 'CHN - TBM'
+    }, {
+        title: 'Chennai Siruseri',
+        value: 'CHN - SRZ'
+    }];
 
     $scope.asset = {
-        assetname: '',
-        ostype: '',
-        assetno: '',
-        description: '',
-        region: '',
+        asset_name: '',
+        asset_cts_id: '',
+        asset_type: '',
+        asset_model: '',
+        asset_platform_version: '',
+        asset_udid: '',
+        asset_imei: '',
+        asset_serialno: '',
+        asset_procurement_id: '',
+        asset_location: '',
+        asset_description: '',
     };
 
     /* For Pagination Control*/
@@ -52,36 +88,46 @@ function AssetAdminController($scope, $route, $modal, $routeParams,Global,Assets
     /* To reset the form data*/
     $scope.reset = function() {
         $scope.asset = {
-        assetname: '',
-        ostype: '',
-        assetno: '',
-        description: '',
-        region: '',
-        };
+            asset_name: '',
+            asset_cts_id: '',
+            asset_type: '',
+            asset_model: '',
+            asset_platform_version: '',
+            asset_udid: '',
+            asset_imei: '',
+            asset_serialno: '',
+            asset_procurement_id: '',
+            asset_location: '',
+            asset_description: '',
+            };
     };
 
 
 
     /*Function to add assets to the selected region*/
     $scope.createAssets = function(index) {
+        $scope.submitted = true;
+        
+        if($scope.assetsform.$invalid)
+            return;
         
         var asset = new Assets($scope.asset);
 
         asset.$save(function(response) {
-                alert("Asset Added Succesfully");
+            alert("Asset Added Succesfully");
         });
 
     };
 
     $scope.loadAssets = function(index) {
         Assets.query({
-           // 'eventId': $scope.events[index]._id
+            // 'eventId': $scope.events[index]._id
         }, function(response) {
-            $scope.assetDataObject=response;
+            $scope.assetDataObject = response;
         });
     };
-   
-$scope.loadAssets();
+
+    $scope.loadAssets();
     /*To remove blog by admin*/
     // $scope.remove = function(articleIndex) {
 

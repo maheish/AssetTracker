@@ -8,7 +8,7 @@
 
 
         <!-- Tab bar -->
-        <div class="segmented-control" style="width: 100%; color: #15a286">
+        <div class="segmented-control" style="width: 100%; color: #0d82c0">
             <input type="radio" name="sc-1-1" id="sc-1-1-1" checked ng-click="ostype=''">
             <input type="radio" name="sc-1-1" id="sc-1-1-2" ng-click="ostype='iOS'">
             <input type="radio" name="sc-1-1" id="sc-1-1-3" ng-click="ostype='Android'">
@@ -21,18 +21,17 @@
         </div>
 
 
-        <div>
+        <div class="assetListTableBorder">
 
             <div ng-class-even="'evenRow'" ng-class-odd="'oddRow'" data-ng-repeat="item in assetDataObject | filter:ostype |filter:assetSearchText" style="min-height:50px;">
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 content-container rowLabel" style="margin-left:0px; ver">
-                    <a ng-href="#!devicedetails/{{item}}">{{item.assetname}}</a>
+                    <a ng-href="#!devicedetails/{{item}}">{{item.asset_name+' ('+item.asset_cts_id+')'}}</a>
                 </div>
                 <div id="rowTopRightLabel" class="col-lg-4 col-md-4 col-sm-4 col-xs-6 content-container rowLabel">
-                    {{item.ostype + ' ' +'6.0'}}
+                    {{item.asset_type + ' ' +item.asset_platform_version}}
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 content-container rowLabel">
-                    <!-- {{item.assetno}} -->
-                    Maheish sundhar (290745)
+                    {{item.owner_id ? item.owner_name+' '+item.owner_id : 'Available'}} 
                 </div>
 
             </div>

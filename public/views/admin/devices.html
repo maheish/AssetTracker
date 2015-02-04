@@ -1,93 +1,179 @@
 <div data-ng-controller="AssetAdminController" class="adminOuterView">
     <ol class="breadcrumb" style="background-color: white;margin:0;padding:10px 0 0px 20px;">
-        <li><a href="/">Home</a></li>
+        <li><a href="/">Home</a>
+        </li>
         <li class="active">Asset Admin</li>
     </ol>
-    <button type="button" class="btn btn-primary" style="width:120px; float:right;"  data-toggle="modal" data-target="#addassetform">Add Assets</button>
+    <button type="button" class="btn btn-primary" style="width:120px; float:right;" data-toggle="modal" data-target="#addassetform">Add Assets</button>
     <div class="settings-container" style="clear: both;">
         <fieldset class="container-border">
-            <legend class="container-border"> <h4> Settings for Assets </h4></legend>
-            <button type="button" data-toggle="modal" data-target="#editCategoryDialog" class="btn btn-primary container-border">Edit Predefined Asset Type</button>
-           <!--  <button type="button" data-toggle="modal" data-target="#editTagDialog"  class="btn btn-primary container-border" style=" margin-left: 20px;">Edit Predefined Tags</button> -->
+            <legend class="container-border">
+                <h4> Asset Settings</h4>
+            </legend>
+            <button type="button" data-toggle="modal" data-target="#editCategoryDialog" class="btn btn-primary container-border">Edit Asset Types</button>
+            <button type="button" data-toggle="modal" data-target="#editTagDialog"  class="btn btn-primary container-border" style=" margin-left: 20px;">Edit Locations</button>
         </fieldset>
     </div>
 
     <div class="blogs-container">
         <fieldset class="container-border">
-            <legend class="container-border"> <h4> Asset List </h4></legend>
+            <legend class="container-border">
+                <h4> Asset List </h4>
+            </legend>
             <div id="scrollArea">
                 <div class="" data-ng-repeat="item in assetDataObject">
-                    <div class="col-md-5 content-container" style="margin-left:0px;">
-                   {{item.assetname}}
-                    </div>
-                    <div class="col-md-2 content-container">
-                     {{item.assetname}}
-                    </div>
-                    <div class="col-md-2 content-container">
-                   {{item.assetname}}
+                    <div class="col-md-3 content-container" style="margin-left:0px;">
+                        {{item.asset_name+' ('+item.asset_cts_id+')'}}
                     </div>
                     <div class="col-md-3 content-container">
-                     <a href="#!/articles/{{article._id}}/Blog-Admin/null"> Allocate</a> <span class="slash" ng-show="article.region.length<=1 || global.role==1">/</span> 
-                     <a href="#!/articles/{{article._id}}/Blog-Admin-Edit/null" ng-show="article.region.length<=1 || global.role==1"> Edit </a> <span class="slash" ng-show="article.region.length<=1 || global.role==1">/</span> 
-                     
-                     <a ng-click="open($index)" style="cursor:pointer" ng-show="article.region.length<=1 || global.role==1"> Delete </a> 
+                       {{item.asset_type + ' ' +item.asset_platform_version}}
                     </div>
-                    <hr  style="border:solid #cacbce; border-width:1px 0 0; height:0; clear:both; padding:5px;">
+                    <div class="col-md-3 content-container">
+                        {{item.owner_id ? item.owner_name+' '+item.owner_id : 'Available'}}
+                    </div>
+                    <div class="col-md-3 content-container">
+                        <a href="#!/articles/{{article._id}}/Blog-Admin/null"> Allocate</a>  <span class="slash">/</span> 
+                        <a href="#!/articles/{{article._id}}/Blog-Admin-Edit/null" > Edit </a>  <span class="slash">/</span> 
+                        <a ng-click="open($index)" style="cursor:pointer"> Delete </a> 
+                    </div>
+                    <hr style="border:solid #cacbce; border-width:1px 0 0; height:0; clear:both; padding:5px;">
                 </div>
-                
-              
+
+
             </div>
 
         </fieldset>
     </div>
 
+    
+<!--  Asset Add/Edit modal window  -->
+    
     <div class="modal fade" id="addassetform" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" >
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h3 class="modal-title" id="myModalLabel">Add Assets</h3>
                 </div>
-                <div class="modal-body" >
-                    <form name="assetsform" novalidate role="form" >
+                <div class="modal-body">
+                    <form name="assetsform" novalidate role="form">
+
+
                         <div class="row ">
                             <div class="col-md-12 col-sm-12  form-group">
                                 <label class="control-label col-sm-4 col-md-4">Asset Name</label>
                                 <div class="col-sm-6 col-md-6 ">
-                                    <input type="text" size="30" name="assetname" data-ng-model="asset.assetname" class="form-control" required>
-                                    <small class="error" ng-show="assetsform.name.$error.required && submitted">Required!</small>
+                                    <input type="text" size="30" name="asset_name" data-ng-model="asset.asset_name " class="form-control" required>
+                                    <small class="error" ng-show="assetsform.asset_name.$error.required && submitted">Required!</small>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row ">
                             <div class="col-md-12 col-sm-12  form-group">
-                                <label class="control-label col-sm-4 col-md-4">Asset Number</label>
+                                <label class="control-label col-sm-4 col-md-4">Asset Id</label>
                                 <div class="col-sm-6 col-md-6 ">
-                                    <input type="text" size="30" name="assetname" data-ng-model="asset.assetno" class="form-control" required>
-                                    <small class="error" ng-show="assetsform.no.$error.required && submitted">Required!</small>
+                                    <input type="text" size="30" name="asset_cts_id" data-ng-model="asset.asset_cts_id" class="form-control" required>
+                                    <small class="error" ng-show="assetsform.asset_cts_id.$error.required && submitted">Required!</small>
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4" style="margin-top:0px;">Asset Procurement Number</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <input type="text" size="30" name="asset_procurement_id" data-ng-model="asset.asset_procurement_id" class="form-control" required>
+                                    <small class="error" ng-show="assetsform.asset_procurement_id.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="row ">
                             <div class="col-md-12 col-sm-12  form-group">
                                 <label class="control-label col-sm-4 col-md-4">Asset Type</label>
                                 <div class="col-sm-6 col-md-6 ">
-                                    <select data-ng-model="asset.ostype" name="ostype" class="form-control" required>
+                                    <select data-ng-model="asset.asset_type" name="asset_type" class="form-control" required>
                                         <option data-ng-repeat="item in ostypesList">{{item.value}}</option>
                                     </select>
-                                    <small class="error" ng-show="assetsform.ostype.$error.required && submitted">Required!</small>
+                                    <small class="error" ng-show="assetsform.asset_type.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">Asset Model</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <input type="text" size="30" name="asset_model" data-ng-model="asset.asset_model " class="form-control" required>
+                                    <small class="error" ng-show="assetsform.asset_model.$error.required && submitted">Required!</small>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row ">
                             <div class="col-md-12 col-sm-12  form-group">
-                                <label class="control-label col-sm-4 col-md-4">Region</label>
+                                <label class="control-label col-sm-4 col-md-4">Asset Platform Version</label>
                                 <div class="col-sm-6 col-md-6 ">
-                                    <input type="text" size="30" name="assetregion" data-ng-model="asset.region" class="form-control" required>
-                                    <small class="error" ng-show="assetsform.assetregion.$error.required && submitted">Required!</small>
+                                    <input type="text" size="30" name="asset_platform_version" data-ng-model="asset.asset_platform_version" class="form-control" required>
+                                    <small class="error" ng-show="assetsform.asset_platform_version.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">Asset UDID</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <input type="text" size="30" name="asset_udid" data-ng-model="asset.asset_udid " class="form-control" required>
+                                    <small class="error" ng-show="assetsform.asset_udid.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">Asset IMEI</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <input type="text" size="30" name="asset_imei" data-ng-model="asset.asset_imei" class="form-control" required>
+                                    <small class="error" ng-show="assetsform.asset_imei.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">Asset Serial Number</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <input type="text" size="30" name="asset_serialno" data-ng-model="asset.asset_serialno " class="form-control" required>
+                                    <small class="error" ng-show="assetsform.asset_serialno.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                          <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">Asset Location</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <select data-ng-model="asset.asset_location" name="asset_location" class="form-control" required>
+                                        <option data-ng-repeat="item in locationsList">{{item.value}}</option>
+                                    </select>
+                                    <small class="error" ng-show="assetsform.asset_location.$error.required && submitted">Required!</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-md-12 col-sm-12  form-group">
+                                <label class="control-label col-sm-4 col-md-4">Asset Description</label>
+                                <div class="col-sm-6 col-md-6 ">
+                                    <input type="text" size="30" data-ng-model="asset.asset_description" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -113,31 +199,28 @@
                         </div> -->
 
                         <div class="modal-footer">
-                             <button type="button" class="btn btn-primary" style="width:80px;"  ng-click="createAssets()">Submit</button>
-                             
+                            <button type="button" class="btn btn-primary" style="width:80px;" ng-click="createAssets()">Submit</button>
+
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script type="text/ng-template" id="deleteDialog-Admin">
-        <div class="modal-header">
-            <h3> Delete Confirmation</h3>
-        </div>
-        <div class="modal-body">
-            Are you sure want to delete this Blog?
-        </div>
+        < div class = "modal-header" > < h3 > Delete Confirmation < /h3>
+        </div > < div class = "modal-body" >
+            Are you sure want to delete this Blog ? < /div>
         <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
-     </script>
+            <button class="btn btn-primary" ng-click="ok()">OK</button > < button class = "btn btn-warning"
+        ng - click = "cancel()" > Cancel < /button>
+        </div >
+    </script>
 </div>
 
 <div id="editCategoryDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" ng-init = "init()" ng-controller="CategoryController" >
+    <div class="modal-dialog" ng-init="init()" ng-controller="CategoryController">
         <div class="modal-content" style="margin:0 auto;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -145,33 +228,32 @@
             </div>
             <div class="modal-body">
 
-            <input type="text" ng-model="newCategory" size="30" placeholder="Enter New Category here">
-            <button ng-click="addCategory()">Add</button>
+                <input type="text" ng-model="newCategory" size="30" placeholder="Enter New Category here">
+                <button ng-click="addCategory()">Add</button>
 
-            <div class="tasks" ng-show="(categories).length > 0">
-                <b>Categories:</b>
+                <div class="tasks" ng-show="(categories).length > 0">
+                    <b>Categories:</b>
 
-                <ul class = "custul" ng-repeat="category in categories">
-                    <li>              
-                        <div ng-controller="EditCategoryController">
-                            <button ng-click="categories.splice($index, 1)">Delete</button>
-                        
-                            <span ng-hide="editorEnabled" ng-click="enableEditor()">
+                    <ul class="custul" ng-repeat="category in categories">
+                        <li>
+                            <div ng-controller="EditCategoryController">
+                                <button ng-click="categories.splice($index, 1)">Delete</button>
+
+                                <span ng-hide="editorEnabled" ng-click="enableEditor()">
                                 <b>{{category.val}}</b>
                             </span>
-                        
-                            <span ng-show="editorEnabled">
+
+                                <span ng-show="editorEnabled">
                                 <input type="text" size="30" ng-model="editCategory">
                                 <button ng-click="save()">Ok</button>
                             </span>
-                        </div>
-                    </li>
-                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
             <div class="modal-footer" style="clear: both;">
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        data-ng-click="saveCategory()">Done</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="saveCategory()">Done</button>
             </div>
         </div>
     </div>
@@ -180,7 +262,7 @@
 
 
 <div id="editTagDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" ng-init = "init()" ng-controller="TagController" >
+    <div class="modal-dialog" ng-init="init()" ng-controller="TagController">
         <div class="modal-content" style="margin:0 auto;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -188,33 +270,32 @@
             </div>
             <div class="modal-body">
 
-            <input type="text" ng-model="newTag" size="30" placeholder="Enter New Tag here">
-            <button ng-click="addTag()">Add</button>
+                <input type="text" ng-model="newTag" size="30" placeholder="Enter New Tag here">
+                <button ng-click="addTag()">Add</button>
 
-            <div class="tasks" ng-show="(tags).length > 0">
-                <b>Tags:</b>
+                <div class="tasks" ng-show="(tags).length > 0">
+                    <b>Tags:</b>
 
-                <ul class = "custul" ng-repeat="tag in tags">
-                    <li>              
-                        <div ng-controller="EditTagController">
-                            <button ng-click="tags.splice($index, 1)">Delete</button>
-                        
-                            <span ng-hide="editorEnabled" ng-click="enableEditor()">
+                    <ul class="custul" ng-repeat="tag in tags">
+                        <li>
+                            <div ng-controller="EditTagController">
+                                <button ng-click="tags.splice($index, 1)">Delete</button>
+
+                                <span ng-hide="editorEnabled" ng-click="enableEditor()">
                                 <b>{{tag.val}}</b>
                             </span>
-                        
-                            <span ng-show="editorEnabled">
+
+                                <span ng-show="editorEnabled">
                                 <input type="text" size="30" ng-model="editTag">
                                 <button ng-click="save()">Ok</button>
                             </span>
-                        </div>
-                    </li>
-                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
             <div class="modal-footer" style="clear: both;">
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
-                        data-ng-click="saveTag()">Done</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="saveTag()">Done</button>
             </div>
         </div>
     </div>

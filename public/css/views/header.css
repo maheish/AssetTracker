@@ -1,0 +1,52 @@
+/*Navbar*/
+
+.navbar-default {
+background-image: linear-gradient(to bottom, rgba(12, 119, 183, 0.73) 0%, #0d82c0 100%);
+border-color: #0d82c0;
+border-radius: 0px;
+}
+
+
+/*Brand Label*/
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand{
+    color: white;
+    background-color: transparent;
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{
+    color: black;
+    background-color: transparent;
+}
+
+
+/*Navbar button labels*/
+
+.navbar-default .navbar-nav>li>a{
+    color:white
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
+    color: #335C85;
+    background-color: white;
+}
+
+
+/*Navbar menu icon*/
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: rgba(12, 119, 183, 1);
+}
+
+
+/*Navbar-menu label color for sm,xs devices*/
+
+@media (max-width: 767px){
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a {
+    color: white;
+    }
+}

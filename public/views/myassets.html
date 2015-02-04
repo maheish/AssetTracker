@@ -6,20 +6,25 @@
             <input class="searchbar .col-md-6 .col-lg-6 .col-sm-6" style="margin:0px 0px 5px 5px; top:5px; float:right" type="text" placeholder="Search..." ng-model="assetSearchText">
         </div>
 
+        <div class="assetListTableBorder" style="margin-top: 9px;">
+            <div ng-class-even="'evenRow'" ng-class-odd="'oddRow'" id="assetTableRow" data-ng-repeat="item in assetDataObject | filter:ostype |filter:assetSearchText">
+                
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 content-container rowLabel myAssetsRowLabel" style="margin-left:0px; ver">
+                    <a ng-href="#!devicedetails/{{item}}">{{item.asset_name}}</a>
+                </div>
+                <div id="rowTopRightLabel" class="col-lg-4 col-md-3 col-sm-3 col-xs-6 content-container rowLabel myAssetsRowLabel">
+                    {{item.asset_type + ' ' +item.asset_platform_version}}
+                </div>
+                <div id="rowBottomLeftLabel" class="col-lg-2 col-md-3 col-sm-3 col-xs-6 content-container rowLabel myAssetsRowLabel">
+                    {{date_tagged?('Since '+item.assetno | item.date_tagged:'dd mm yy'):item.asset_cts_id}}
+                </div>
 
-            <div ng-class-even="'evenRow'" ng-class-odd="'oddRow'" data-ng-repeat="item in assetDataObject | filter:ostype |filter:assetSearchText" style="min-height:50px;">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 content-container rowLabel" style="margin-left:0px; ver">
-                    <a ng-href="#!devicedetails/{{item}}">{{item.assetname}}</a>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 content-container assignButton">
+               		<button type="button" class="btn btn-primary">Assign</button>
                 </div>
-                <div id="rowTopRightLabel" class="col-lg-4 col-md-4 col-sm-4 col-xs-6 content-container rowLabel">
-                    {{item.ostype + ' ' +'6.0'}}
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 content-container rowLabel">
-                    <!-- {{item.assetno}} -->
-                    Since Jan2
-                </div>
-
+                
             </div>
 
+        </div>
     </div>
 </div>
