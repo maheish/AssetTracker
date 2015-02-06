@@ -15,6 +15,9 @@ module.exports = function(app, auth) {
     var assets = require('../app/controllers/assets');
     app.get('/assets', assets.all);
     app.post('/assets', assets.create);
+    app.put('/assets/:assetId', assets.update);
+//    app.get('/assets', assets.destroy)
+    app.param('assetId', assets.getAssetById);
 
     // Admin user Route
     var adminuser = require('../app/controllers/adminusers');

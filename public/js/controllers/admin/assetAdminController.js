@@ -10,16 +10,11 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
     Static Contents for Assets Page
     ***********************************************************************************/
     $scope.global = Global;
-    
+
     $scope.submitted = false;
-    
-    $scope.assetDataObject = [{
-        assetname: 'iPhone6',
-        ostype: 'iOS'
-    }, {
-        devicename: 'S3',
-        ostype: 'Android'
-    }];
+
+    $scope.addEditMode = '';
+
     /* Filter Options*/
     $scope.filterByRegion = "region";
     $scope.filterByCategory = "category";
@@ -44,7 +39,7 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
         title: 'MacMini',
         value: 'MacMini'
     }];
-    
+
 
     $scope.locationsList = [{
         title: 'Chennai DLF',
@@ -99,18 +94,24 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
             asset_procurement_id: '',
             asset_location: '',
             asset_description: '',
-            };
+        };
     };
 
-
+    $scope.addEditAsset = function(index) {
+        if ($scope.addEditMode == 'Edit') {
+            $scope.editAsset(index);
+        } else {
+            $scope.createAssets(index);
+        }
+    }
 
     /*Function to add assets to the selected region*/
     $scope.createAssets = function(index) {
         $scope.submitted = true;
-        
-        if($scope.assetsform.$invalid)
+
+        if ($scope.assetsform.$invalid)
             return;
-        
+
         var asset = new Assets($scope.asset);
 
         asset.$save(function(response) {
@@ -119,51 +120,91 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
 
     };
 
-    $scope.loadAssets = function(index) {
-        Assets.query({
-            // 'eventId': $scope.events[index]._id
-        }, function(response) {
-            $scope.assetDataObject = response;
+    /*Function to edit assets to the selected region*/
+    $scope.editAsset = function(index) {
+        $scope.submitted = true;
+
+        if ($scope.assetsform.$invalid)
+            return;
+
+        Assets.update({
+            assetId: $scope.asset._id
+        }, $scope.asset,
+        function(response) {
+            alert("Asset Updated Succesfully");
         });
-    };
+};
 
-    $scope.loadAssets();
-    /*To remove blog by admin*/
-    // $scope.remove = function(articleIndex) {
 
-    //     var article = $scope.articles[articleIndex];
-    //     Articles.delete({
-    //         articleId: article._id
-    //     }, function() {
-    //         $scope.articles.splice(articleIndex, 1);
+/*Function to delete assets to the selected region*/
+$scope.deleteAsset = function(index) {
+    $scope.submitted = true;
 
-    //     });
-    // };
-    /*To open modal dialog*/
+    var asset = $scope.assetDataObject[index];
 
-    $scope.open = function(index) {
+    asset.$save(function(response) {
+        alert("Asset Added Succesfully");
+    });
+};
 
-        $scope.articleIndex = index;
 
-        var modalInstance = $modal.open({
-            templateUrl: 'deleteDialog-Admin',
-            controller: ModalInstanceCtrl,
-            resolve: {
-                items: function() {
+$scope.loadAssets = function(index) {
+    Assets.query({
+        // 'eventId': $scope.events[index]._id
+    }, function(response) {
+        $scope.assetDataObject = response;
+    });
+};
 
-                }
+$scope.loadAssets();
+
+/*To remove blog by admin*/
+// $scope.remove = function(articleIndex) {
+
+//     var article = $scope.articles[articleIndex];
+//     Articles.delete({
+//         articleId: article._id
+//     }, function() {
+//         $scope.articles.splice(articleIndex, 1);
+
+//     });
+// };
+/*To open modal dialog*/
+
+$scope.open = function(index) {
+
+    $scope.articleIndex = index;
+
+    var modalInstance = $modal.open({
+        templateUrl: 'deleteDialog-Admin',
+        controller: ModalInstanceCtrl,
+        resolve: {
+            items: function() {
+
             }
+        }
 
-        });
-        modalInstance.result.then(function(selectedItem) {
-            $scope.remove($scope.articleIndex);
+    });
+    modalInstance.result.then(function(selectedItem) {
+        $scope.remove($scope.articleIndex);
 
-        }, function() {
-            $log.info('Modal dismissed at: ' + new Date());
+    }, function() {
+        $log.info('Modal dismissed at: ' + new Date());
 
-        });
+    });
 
-    };
+};
+
+
+$scope.openAddWindow = function(index) {
+    $scope.addEditMode = 'Add';
+}    
+    
+$scope.openEditWindow = function(index) {
+    $scope.addEditMode = 'Edit';
+    $scope.asset = $scope.assetDataObject[index];
+}
+
 }
 
 function ModalInstanceCtrl($scope, $modalInstance, items) {

@@ -11,7 +11,8 @@ var mongoose = require('mongoose'),
  * Find assets by id
  */
 
-exports.assets = function(req, res, next, id) {
+exports.getAssetById = function(req, res, next, id) {
+    console.log("<<<<<getAssetById>>>>");
     Assets.load(id, function(err, assets) {
         if (err) return next(err);
         if (!assets) return next(new Error('Failed to load assets ' + id));
@@ -35,7 +36,9 @@ exports.create = function(req, res) {
  * Update a assets
  */
 exports.update = function(req, res) {
+    console.log("<<<<<Asset update>>>>");
     var assets = req.assets;
+    console.log(assets);
     assets = _.extend(assets, req.body);
     assets.save(function(err) {
         res.jsonp(assets);

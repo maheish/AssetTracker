@@ -4,7 +4,7 @@
         </li>
         <li class="active">Asset Admin</li>
     </ol>
-    <button type="button" class="btn btn-primary" style="width:120px; float:right;" data-toggle="modal" data-target="#addassetform">Add Assets</button>
+    <button type="button" class="btn btn-primary" style="width:120px; float:right;" data-toggle="modal" data-target="#addassetform" ng-click="openAddWindow">Add Assets</button>
     <div class="settings-container" style="clear: both;">
         <fieldset class="container-border">
             <legend class="container-border">
@@ -33,8 +33,8 @@
                     </div>
                     <div class="col-md-3 content-container">
                         <a href="#!/articles/{{article._id}}/Blog-Admin/null"> Allocate</a>  <span class="slash">/</span> 
-                        <a href="#!/articles/{{article._id}}/Blog-Admin-Edit/null" > Edit </a>  <span class="slash">/</span> 
-                        <a ng-click="open($index)" style="cursor:pointer"> Delete </a> 
+                        <a data-toggle="modal" data-target="#addassetform" ng-click="openEditWindow($index)"> Edit </a>  <span class="slash">/</span> 
+                        <a ng-click="open($index)" style="cursor:pointer" ng-click="deleteAsset($index)> Delete </a> 
                     </div>
                     <hr style="border:solid #cacbce; border-width:1px 0 0; height:0; clear:both; padding:5px;">
                 </div>
@@ -53,7 +53,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h3 class="modal-title" id="myModalLabel">Add Assets</h3>
+                    <h3 class="modal-title" id="myModalLabel">{{addEditMode=='Edit'?'Edit Asset':'Add Asset'}}</h3>
                 </div>
                 <div class="modal-body">
                     <form name="assetsform" novalidate role="form">
@@ -199,7 +199,7 @@
                         </div> -->
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" style="width:80px;" ng-click="createAssets()">Submit</button>
+                            <button type="button" class="btn btn-primary" style="width:80px;" ng-click="addEditAsset()">Submit</button>
 
                         </div>
                     </form>
