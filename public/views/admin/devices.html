@@ -34,7 +34,8 @@
                     <div class="col-md-3 content-container">
                         <a href="#!/articles/{{article._id}}/Blog-Admin/null"> Allocate</a>  <span class="slash">/</span> 
                         <a data-toggle="modal" data-target="#addassetform" ng-click="openEditWindow($index)"> Edit </a>  <span class="slash">/</span> 
-                        <a ng-click="open($index)" style="cursor:pointer" ng-click="deleteAsset($index)> Delete </a> 
+<!--                        <a ng-click="open($index)" style="cursor:pointer" ng-click="deleteAsset($index)"> Delete </a> -->
+                        <a style="cursor:pointer" ng-click="deleteAsset($index)"> Delete </a>                         
                     </div>
                     <hr style="border:solid #cacbce; border-width:1px 0 0; height:0; clear:both; padding:5px;">
                 </div>
@@ -64,6 +65,7 @@
                                 <label class="control-label col-sm-4 col-md-4">Asset Name</label>
                                 <div class="col-sm-6 col-md-6 ">
                                     <input type="text" size="30" name="asset_name" data-ng-model="asset.asset_name " class="form-control" required>
+                                    <small class="error" ng-show="assetsform.asset_name.$error.required && submitted">Required!</small>
                                     <small class="error" ng-show="assetsform.asset_name.$error.required && submitted">Required!</small>
                                 </div>
                             </div>

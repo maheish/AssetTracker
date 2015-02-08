@@ -49,6 +49,7 @@ exports.update = function(req, res) {
  * Delete an assets
  */
 exports.destroy = function(req, res) {
+    console.log("<<<<<Asset delete>>>>");
     var assets = req.assets;
     assets.remove(function(err) {
         if (err) {

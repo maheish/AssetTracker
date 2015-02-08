@@ -138,12 +138,14 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
 
 /*Function to delete assets to the selected region*/
 $scope.deleteAsset = function(index) {
-    $scope.submitted = true;
-
     var asset = $scope.assetDataObject[index];
 
-    asset.$save(function(response) {
-        alert("Asset Added Succesfully");
+    Assets.delete({
+        assetId: asset._id
+    }, function() {
+        $scope.assetDataObject.splice(index, 1);
+        alert("Asset deleted successfully");
+        //$window.location.reload();
     });
 };
 
