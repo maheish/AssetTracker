@@ -16,7 +16,7 @@
                     {{item.asset_type + ' ' +item.asset_platform_version}}
                 </div>
                 <div id="rowBottomLeftLabel" class="col-lg-2 col-md-3 col-sm-3 col-xs-6 content-container rowLabel myAssetsRowLabel">
-                    {{date_tagged?('Since '+item.assetno | item.date_tagged:'dd mm yy'):item.asset_cts_id}}
+                    {{date_tagged?('Since '+ item.date_tagged | date :'dd mm yy'):item.asset_cts_id}}
                 </div>
 
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 content-container assignButton">

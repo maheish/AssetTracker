@@ -115,7 +115,7 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
         var asset = new Assets($scope.asset);
 
         asset.$save(function(response) {
-            alert("Asset Added Succesfully");
+            alert("Asset Added Successfully");
         });
 
     };
@@ -131,7 +131,7 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
             assetId: $scope.asset._id
         }, $scope.asset,
         function(response) {
-            alert("Asset Updated Succesfully");
+            alert("Asset Updated Successfully");
         });
 };
 
@@ -144,7 +144,7 @@ $scope.deleteAsset = function(index) {
         assetId: asset._id
     }, function() {
         $scope.assetDataObject.splice(index, 1);
-        alert("Asset deleted successfully");
+        alert("Asset Deleted Successfully");
         //$window.location.reload();
     });
 };

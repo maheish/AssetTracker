@@ -75,7 +75,7 @@ exports.destroy = function(req, res) {
 exports.all = function(req, res) {
 
     var searchString = req.query["region"];
-    console.log(searchString);
+    console.log("searchString"+searchString);
 
     var objSort = {};
     objSort["" + "FromDate"] = -1;

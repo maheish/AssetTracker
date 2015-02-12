@@ -4,10 +4,7 @@
 
 
 // Defining contents to be displayed in home page
-function MyAssetsController($scope, $http, Global, Assets) {
-
-
-    $scope.ostype = '';
+function MyAssetsController($scope, Assets) {
 
     $scope.loadAssets = function(index) {
         Assets.query({
