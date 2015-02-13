@@ -26,7 +26,10 @@ exports.assets = function(req, res, next, id) {
 exports.create = function(req, res) {
     console.log("<<<<<creating admin user>>>>");
     console.log(req.body);
-    var temp={userid:"290745",role:"1"};
+    var temp = {
+        userid: "290745",
+        role: "1"
+    };
     var user = new AdminUsers(temp);
     //var user = new AdminUsers(req.body);
     user.save();
@@ -39,25 +42,28 @@ exports.create = function(req, res) {
 exports.find = function(req, res) {
     console.log(req.param('userid'));
     AdminUsers.findOne({
-            'userid': req.param('userid')
-        }, function(err, user) {
-            if (err) {
-                console.log("Error getting user");
-            } else if(user==null){
+        'userid': req.param('userid')
+    }, function(err, user) {
+        if (err) {
+            console.log("Error getting user");
+        } else if (user == null) {
 
-                req.session.username=req.param('userid');
-                req.session.userrole='0';
-                res.redirect('/');
+            req.session.username = req.param('userid');
+            req.session.userid = req.param('userid');
+            req.session.role = '0';
+            req.session.region = 'CHN-DLF';
+            res.redirect('/');
 
-            } else
-            {
-                 console.log('check for adminUser '+user);
-                 req.session.username=req.param('userid');
-                 req.session.userrole=user.role;
-                 res.redirect('/');
-            }
+        } else {
+            console.log('check for adminUser ' + user);
+            req.session.username = user.userid;
+            req.session.userid = user.userid;
+            req.session.role = user.role;
+            req.session.region = 'CHN-DLF';
+            res.redirect('/');
+        }
 
-        });
+    });
 };
 
 /**
@@ -105,8 +111,7 @@ exports.all = function(req, res) {
     var objSort = {};
     objSort["" + "FromDate"] = -1;
 
-    Assets.find({
-    }).sort({
+    Assets.find({}).sort({
         //'FromDate': 1
     }).exec(function(err, assets) {
         if (err) {
