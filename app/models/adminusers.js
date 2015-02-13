@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var AdminUserSchema = new Schema({
-    // username: {type : String, default : '', trim : true}
+
     userid: {
         type: String,
         default: '',
@@ -22,5 +22,15 @@ var AdminUserSchema = new Schema({
     }
     //, region: {type : String, default : '', trim : true}  
 });
+
+/*
+* Static methods
+*/
+
+AdminUserSchema.statics={
+    load:function(id, callback){
+        this.findOne({_id:id}).exec(callback)
+    }
+};
 
 mongoose.model('AdminUsers', AdminUserSchema);

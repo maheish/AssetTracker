@@ -24,9 +24,13 @@ module.exports = function(app, auth) {
 
     // Admin user Route
     var adminuser = require('../app/controllers/adminusers');
-    //app.get('/adminuser', adminuser.all);
-    app.get('/adminuser', adminuser.create);
-    //app.post('/auhenticateUser', adminuser.find);
+    app.get('/adminuser', adminuser.all);
+    app.post('/adminuser', adminuser.create);
+    app.del('/adminuser/:userId', adminuser.destroy);
+
+    app.param('userId', adminuser.getUser);
+
+
 
     app.post('/auhenticateUser', function(req, res) {
         if (req.param('userid') == '' || req.param('password') == '') {

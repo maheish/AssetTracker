@@ -12,6 +12,8 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
     $scope.global = Global;
 
     $scope.submitted = false;
+    $scope.allocatesubmitted = false;
+    $scope.allocateAssetId='';
 
     $scope.addEditMode = '';
 
@@ -65,6 +67,10 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
         asset_location: '',
         asset_description: '',
     };
+    $scope.owner = {
+        owner_id: '',
+        owner_name: '',
+    }
 
     /* For Pagination Control*/
 
@@ -160,17 +166,28 @@ $scope.loadAssets = function(index) {
 
 $scope.loadAssets();
 
-/*To remove blog by admin*/
-// $scope.remove = function(articleIndex) {
+$scope.assignAssetId=function(id) {
+   $scope.allocateAssetId=id;
+}
 
-//     var article = $scope.articles[articleIndex];
-//     Articles.delete({
-//         articleId: article._id
-//     }, function() {
-//         $scope.articles.splice(articleIndex, 1);
+/*To aloocate assets  by admin */
+$scope.allocateAsset = function() {
 
-//     });
-// };
+    $scope.allocatesubmitted = true;
+
+        if ($scope.allocateform.$invalid)
+            return;
+
+     Assets.update({
+            assetId: $scope.allocateAssetId
+        }, $scope.owner,
+        function(response) {
+            alert("Asset Allocated Succesfully");
+            $('#allocateDialog').modal('hide');
+            $scope.loadAssets();
+        });
+    
+};
 /*To open modal dialog*/
 
 $scope.open = function(index) {

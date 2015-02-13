@@ -23,7 +23,7 @@ window.app.factory("getdepartmentservice", function($resource){
 	return $resource('getdepartment', {update: {method: 'PUT'}});
 });
 
-//User service used for 
-window.app.factory("Users", function($resource){
-	return $resource('user/:userId', {userId:'@_id'}, {update: {method: 'PUT'}});
-});
+// //User service used for 
+// window.app.factory("Users", function($resource){
+// 	return $resource('user/:userId', {userId:'@_id'}, {update: {method: 'PUT'}});
+// });

@@ -10,8 +10,9 @@
             <legend class="container-border">
                 <h4> Asset Settings</h4>
             </legend>
-            <button type="button" data-toggle="modal" data-target="#editCategoryDialog" class="btn btn-primary container-border">Edit Asset Types</button>
-            <button type="button" data-toggle="modal" data-target="#editTagDialog"  class="btn btn-primary container-border" style=" margin-left: 20px;">Edit Locations</button>
+            <button type="button" class="btn btn-primary container-border">Edit Asset Types</button>
+            <button type="button"   class="btn btn-primary container-border" style=" margin-left: 20px;">Edit Locations</button>
+            <h4> Coming Soon !!</h4>
         </fieldset>
     </div>
 
@@ -32,7 +33,7 @@
                         {{item.owner_id ? item.owner_name+' '+item.owner_id : 'Available'}}
                     </div>
                     <div class="col-md-3 content-container">
-                        <a href="#!/articles/{{article._id}}/Blog-Admin/null"> Allocate</a>  <span class="slash">/</span> 
+                        <a ng-click="assignAssetId(item._id)" data-toggle="modal" data-target="#allocateDialog"  > Allocate</a>  <span class="slash">/</span> 
                         <a data-toggle="modal" data-target="#addassetform" ng-click="openEditWindow($index)"> Edit </a>  <span class="slash">/</span> 
 <!--                        <a ng-click="open($index)" style="cursor:pointer" ng-click="deleteAsset($index)"> Delete </a> -->
                         <a style="cursor:pointer" ng-click="deleteAsset($index)"> Delete </a>                         
@@ -219,89 +220,52 @@
         ng - click = "cancel()" > Cancel < /button>
         </div >
     </script>
-</div>
 
-<div id="editCategoryDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" ng-init="init()" ng-controller="CategoryController">
+    <div id="allocateDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" >
         <div class="modal-content" style="margin:0 auto;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Edit Category</h4>
+                <h4 class="modal-title">Allocate Asset</h4>
             </div>
             <div class="modal-body">
-
-                <input type="text" ng-model="newCategory" size="30" placeholder="Enter New Category here">
-                <button ng-click="addCategory()">Add</button>
-
-                <div class="tasks" ng-show="(categories).length > 0">
-                    <b>Categories:</b>
-
-                    <ul class="custul" ng-repeat="category in categories">
-                        <li>
-                            <div ng-controller="EditCategoryController">
-                                <button ng-click="categories.splice($index, 1)">Delete</button>
-
-                                <span ng-hide="editorEnabled" ng-click="enableEditor()">
-                                <b>{{category.val}}</b>
-                            </span>
-
-                                <span ng-show="editorEnabled">
-                                <input type="text" size="30" ng-model="editCategory">
-                                <button ng-click="save()">Ok</button>
-                            </span>
+                <form name="allocateform" novalidate role="form">
+                    <div class="row ">
+                        <div class="col-md-12 col-sm-12  form-group">
+                            <label class="control-label col-sm-4 col-md-4">Associate Id</label>
+                            <div class="col-sm-6 col-md-6 " >
+                                <input type="text" name="ownerid" size="30" data-ng-model="owner.owner_id" class="form-control" required>
+                                 <small class="error" ng-show="allocateform.ownerid.$error.required && allocatesubmitted">Required!</small>
+                            </div>        
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12 col-sm-12  form-group">
+                            <label class="control-label col-sm-4 col-md-4">Associate Name</label>
+                            <div class="col-sm-6 col-md-6 ">
+                                <input type="text" size="30" name="ownername" data-ng-model="owner.owner_name" class="form-control" required>
+                                <small class="error" ng-show="allocateform.ownername.$error.required && allocatesubmitted">Required!</small>
                             </div>
-                        </li>
-                    </ul>
-                </div>
+                        </div>
+                    </div>
+               </form>
             </div>
             <div class="modal-footer" style="clear: both;">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="saveCategory()">Done</button>
+                <button type="button" class="btn btn-primary"  data-ng-click="allocateAsset()">Allocate</button>
+            </div>
             </div>
         </div>
     </div>
+
 </div>
 
 
 
-<div id="editTagDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" ng-init="init()" ng-controller="TagController">
-        <div class="modal-content" style="margin:0 auto;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Edit Tag</h4>
-            </div>
-            <div class="modal-body">
 
-                <input type="text" ng-model="newTag" size="30" placeholder="Enter New Tag here">
-                <button ng-click="addTag()">Add</button>
 
-                <div class="tasks" ng-show="(tags).length > 0">
-                    <b>Tags:</b>
 
-                    <ul class="custul" ng-repeat="tag in tags">
-                        <li>
-                            <div ng-controller="EditTagController">
-                                <button ng-click="tags.splice($index, 1)">Delete</button>
 
-                                <span ng-hide="editorEnabled" ng-click="enableEditor()">
-                                <b>{{tag.val}}</b>
-                            </span>
 
-                                <span ng-show="editorEnabled">
-                                <input type="text" size="30" ng-model="editTag">
-                                <button ng-click="save()">Ok</button>
-                            </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="modal-footer" style="clear: both;">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="saveTag()">Done</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
