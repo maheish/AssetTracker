@@ -1,72 +1,76 @@
 <div class="container" ng-controller="DetailController">
 
     <div class="row">
-        <h4 class='col-md-4 col-sm-4 col-xs-4'>DEVICE DETAILS</h4>
+        </br>
+        <dl class="row">
+            <h4 class='col-md-12 col-sm-12 col-xs-12'>DEVICE DETAILS :</h4>
+        </dl>
+        
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE NAME</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_name}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE CTS ID</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_cts_id}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE TYPE</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_type}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE MODEL</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_model}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE PLATFORM VERSION</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_platform_version}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE UDID</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_udid}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE IMEI</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_imei}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE SERIAL NO.</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_serialno}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE PROCUREMENT ID</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_procurement_id}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE LOCATION</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_location}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE DESCRIPTRION</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_description}}</dd>
+        </dl>
+        </br>
+    
+    
+        <dl class="row">
+            <h4 class='col-md-12 col-sm-12 col-xs-12'>CURRENT OWNER DETAILS :</h4>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>OWNER EMPLOYEE ID</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{ownerFields.owner_id}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>OWNER NAME</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{ownerFields.owner_name}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>DATE TAGGED</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{ownerFields.date_tagged}}</dd>
+        </dl>
+        <dl class="row">
+            <dt class='col-md-4 col-sm-4 col-xs-4'>OWNER'S PROJECT</dt>
+            <dd class='col-md-8 col-sm-8 col-xs-8'>{{ownerFields.owner_project}}</dd>
+        </dl>
     </div>
-    <div class="row">
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE NAME</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_name}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE CTS ID</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_cts_id}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE TYPE</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_type}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE MODEL</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_model}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE PLATFORM VERSION</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_platform_version}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE UDID</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_udid}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE IMEI</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_imei}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE SERIAL NO.</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_serialno}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE PROCUREMENT ID</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_procurement_id}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE LOCATION</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_location}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DEVICE DESCRIPTRION</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{deviceFields.asset_description}}</dd>
-    </dl>
-    </br>
-    <dl class="row">
-        <h4 class='col-md-4 col-sm-4 col-xs-4'>CURRENT OWNER DETAILS:</h4>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>OWNER EMPLOYEE ID</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{ownerFields.owner_id}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>OWNER NAME</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{ownerFields.owner_name}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>DATE TAGGED</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{ownerFields.date_tagged}}</dd>
-    </dl>
-    <dl class="row">
-        <dt class='col-md-4 col-sm-4 col-xs-4'>OWNER'S PROJECT</dt>
-        <dd class='col-md-8 col-sm-8 col-xs-8'>{{ownerFields.owner_project}}</dd>
-    </dl>
-</div>
 

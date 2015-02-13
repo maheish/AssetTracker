@@ -5,26 +5,27 @@
 
 // Defining contents to be displayed in detail page
 function DetailController($scope, $routeParams) {
-    alert($routeParams.item);
+    //alert($routeParams.item);
+    var assetDetail = JSON.parse($routeParams.item);
+
     $scope.deviceFields = {
-        asset_name: 'iPhone 5S Space Grey',
-        asset_cts_id: 12345,
-        asset_type: 'iOS',
-        asset_model: 'iphone 5S',
-        asset_platform_version: 'iOS8',
-        asset_udid: 123456,
-        asset_imei: 321654,
-        asset_serialno: 987654321,
-        asset_procurement_id: 42587,
-        asset_location: 'DLF',
-        asset_description: 'Available'
+        asset_name: assetDetail.asset_name,
+        asset_cts_id: assetDetail.asset_cts_id,
+        asset_type: assetDetail.asset_type,
+        asset_model: assetDetail.asset_model,
+        asset_platform_version: assetDetail.asset_platform_version,
+        asset_udid: assetDetail.asset_udid,
+        asset_imei: assetDetail.asset_imei,
+        asset_serialno: assetDetail.asset_serialno,
+        asset_procurement_id: assetDetail.asset_procurement_id,
+        asset_location: assetDetail.asset_location,
+        asset_description: assetDetail.asset_description
     };
-    alert ();
     $scope.ownerFields = {
-        owner_id: 298246,
-        owner_name: 'Partheeban Subramani',
-        date_tagged: '2015-02-01',
-        owner_project: 'Imagine Comunications'
+        owner_id: assetDetail.owner_id,
+        owner_name: assetDetail.owner_name,
+        date_tagged: assetDetail.date_tagged,
+        owner_project: assetDetail.owner_project
     };
     $scope.params = 1;
 }
