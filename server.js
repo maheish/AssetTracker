@@ -82,7 +82,7 @@ if (cluster.isMaster) {
 
 **************/
     
-    console.log('Coaching Community app started on port '+port);
+    console.log('Asset Tracker app started on port '+port);
 
 //Initializing logger
     //logger.init(app, passport, mongoose)

@@ -26,7 +26,7 @@ exports.assets = function(req, res, next, id) {
 exports.create = function(req, res) {
     console.log("<<<<<creating admin user>>>>");
     console.log(req.body);
-    var temp={userid:"290666",role:"2"};
+    var temp={userid:"290745",role:"1"};
     var user = new AdminUsers(temp);
     //var user = new AdminUsers(req.body);
     user.save();
@@ -45,14 +45,16 @@ exports.find = function(req, res) {
                 console.log("Error getting user");
             } else if(user==null){
 
-                req.session.username="290745";
+                req.session.username=req.param('userid');
+                req.session.userrole='0';
                 res.redirect('/');
 
             } else
             {
-                 req.session.username="290666";
+                 console.log('check for adminUser '+user);
+                 req.session.username=req.param('userid');
+                 req.session.userrole=user.role;
                  res.redirect('/');
-
             }
 
         });

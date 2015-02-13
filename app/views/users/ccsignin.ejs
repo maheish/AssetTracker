@@ -7,15 +7,17 @@
 			<div class="header">
 			<img src="../../img/cognizant.png" style="max-height:100px;"/>
 			
-				<form method="POST" action="/auhenticateUser" autocomplete="off">
+				<form method="POST" name="loginForm" action="/auhenticateUser" autocomplete="off">
 				  <p class="error"><%= message %></p>
 				    <div>
 						  <p>Your Cognizant Credentials</p>
 						  <div>
-						    <input id="username" type="text" name="userid" value="" placeholder="Associate Id" style="color: rgb(136, 136, 136); " class="input"/>
+						    <input id="username" type="text" name="userid" value="" placeholder="Associate Id" style="color: rgb(136, 136, 136); " class="input" required/>
+<!--                              <small class="error" ng-show="loginForm.userid.$error.required && submitted">Required!</small>-->
 						  </div>
 						  <div>
-						    <input type="password" id="password_box" name="password" placeholder="password" style="color: rgb(136, 136, 136); " class="input"/>
+						    <input type="password" id="password_box" name="password" placeholder="password" style="color: rgb(136, 136, 136); " class="input" required/>
+<!--                              <small class="error" ng-show="loginForm.password_box.$error.required && submitted">Required!</small>-->
 						  </div>
 						  <div>
 						    <button type="submit" class="signInButton">Sign in</button>

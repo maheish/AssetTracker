@@ -1,15 +1,18 @@
 var async = require('async');
 
-var mongoose = require('mongoose'),
-    Article = mongoose.model('Article'),
-    Comment = mongoose.model('Comment');
+var mongoose = require('mongoose');
 module.exports = function(app, auth) {
 
     var ccusers = require('../app/controllers/ccuser');
-    var userController = require('../app/controllers/user');
+    var LDAPAuth = require('../app/controllers/LDAP/LDAPAuth.js');
+
 
     app.get('/', auth.requiresLogin, ccusers.signin);
     app.get('/ccsignin', ccusers.signin);
+
+
+
+
 
     // Assets Route
     var assets = require('../app/controllers/assets');
@@ -23,6 +26,27 @@ module.exports = function(app, auth) {
     var adminuser = require('../app/controllers/adminusers');
     //app.get('/adminuser', adminuser.all);
     app.get('/adminuser', adminuser.create);
-    app.post('/auhenticateUser',adminuser.find);
+    //app.post('/auhenticateUser', adminuser.find);
+
+    app.post('/auhenticateUser', function(req, res) {
+        if (req.param('userid') == '' || req.param('password') == '') {
+            res.render('users/ccsignin', {
+                title: 'Signin',
+                message: 'Please enter a username and password'
+            });
+        }else{
+            LDAPAuth.LDAPAuth(req.param('userid'), req.param('password'), function(_LDAPresponse) {
+                console.log("login resp : " + _LDAPresponse);
+                if (_LDAPresponse == 'success') {
+                    adminuser.find(req, res);
+                } else if (_LDAPresponse == 'failure') {
+                    res.render('users/ccsignin', {
+                        title: 'Signin',
+                        message: 'Invalid username/password'
+                    });
+                }
+            });
+        }
+    });
 
 };
