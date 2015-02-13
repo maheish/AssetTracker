@@ -30,7 +30,7 @@
                        {{item.asset_type + ' ' +item.asset_platform_version}}
                     </div>
                     <div class="col-md-3 content-container">
-                        {{item.owner_id ? item.owner_name+' '+item.owner_id : 'Available'}}
+                        {{item.owner_id ? item.owner_name +' ('+item.owner_id +')' : 'Available'}}
                     </div>
                     <div class="col-md-3 content-container">
                         <a ng-click="assignAssetId(item._id)" data-toggle="modal" data-target="#allocateDialog"  > Allocate</a>  <span class="slash">/</span> 

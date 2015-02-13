@@ -103,14 +103,19 @@ exports.destroy = function(req, res) {
  */
 exports.all = function(req, res) {
 
-    var searchString = req.query["region"];
-    console.log("searchString"+searchString);
+    var userId = req.query["userid"];
+    console.log("get assets for userId "+userId);
 
+    var searchString = {};
+    
+    if(userId!='' && userId!=null){
+        searchString.owner_id = userId;
+    }
+    
     var objSort = {};
     objSort["" + "FromDate"] = -1;
 
-    Assets.find({
-    }).sort({
+    Assets.find(searchString).sort({
         //'FromDate': 1
     }).exec(function(err, assets) {
         if (err) {

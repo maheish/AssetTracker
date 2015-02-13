@@ -4,11 +4,12 @@
 
 
 // Defining contents to be displayed in home page
-function MyAssetsController($scope, Assets) {
+function MyAssetsController($scope, Assets, Global) {
 
     $scope.loadAssets = function(index) {
         Assets.query({
             // 'eventId': $scope.events[index]._id
+            userid : Global.userid
         }, function(response) {
             $scope.assetDataObject = response;
         });
