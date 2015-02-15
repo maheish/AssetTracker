@@ -20,11 +20,50 @@
                 </div>
 
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 content-container assignButton">
-               		<button type="button" class="btn btn-primary">Assign</button>
+               		<button type="button" class="btn btn-primary" ng-click="assignAssetId(item._id)" data-toggle="modal" data-target="#allocateDialog">Assign</button>
                 </div>
                 
             </div>
 
         </div>
     </div>
+    
+    <!-- Allocate dialog-->
+    <div id="allocateDialog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content" style="margin:0 auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Allocate Asset To</h4>
+            </div>
+            <div class="modal-body">
+                <form name="allocateform" novalidate role="form">
+                    <div class="row ">
+                        <div class="col-md-12 col-sm-12  form-group">
+                            <label class="control-label col-sm-4 col-md-4">Associate Id</label>
+                            <div class="col-sm-6 col-md-6 " >
+                                <input type="text" name="ownerid" size="30" data-ng-model="owner.owner_id" class="form-control" required>
+                                 <small class="error" ng-show="allocateform.ownerid.$error.required && allocatesubmitted">Required!</small>
+                            </div>  
+                            <button class="glyphicon glyphicon-eye-open" style="top:9px; margin:0px" ng-click="checkUserId()">
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-md-12 col-sm-12  form-group">
+                            <label class="control-label col-sm-4 col-md-4">Associate Name</label>
+                            <div class="col-sm-6 col-md-6 ">
+                                <input type="text" size="30" name="ownername" data-ng-model="owner.owner_name" class="form-control" required>
+                                <small class="error" ng-show="allocateform.ownername.$error.required && allocatesubmitted">Required!</small>
+                            </div>
+                        </div>
+                    </div>
+               </form>
+            </div>
+            <div class="modal-footer" style="clear: both;">
+                <button type="button" class="btn btn-primary"  data-ng-click="allocateAsset()">Allocate</button>
+            </div>
+            </div>
+        </div>
+    </div>    
+    
 </div>
