@@ -226,7 +226,7 @@
         <div class="modal-content" style="margin:0 auto;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Allocate Asset</h4>
+                <h4 class="modal-title">Allocate Asset To</h4>
             </div>
             <div class="modal-body">
                 <form name="allocateform" novalidate role="form">
@@ -236,7 +236,8 @@
                             <div class="col-sm-6 col-md-6 " >
                                 <input type="text" name="ownerid" size="30" data-ng-model="owner.owner_id" class="form-control" required>
                                  <small class="error" ng-show="allocateform.ownerid.$error.required && allocatesubmitted">Required!</small>
-                            </div>        
+                            </div>  
+                            <button class="glyphicon glyphicon-eye-open" style="top:9px; margin:0px" ng-click="checkUserId()">
                         </div>
                     </div>
                     <div class="row ">

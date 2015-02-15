@@ -70,6 +70,10 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
     $scope.owner = {
         owner_id: '',
         owner_name: '',
+        isOwnerAllocate: true,
+        allocatorName: Global.username,
+        allocatorId:Global.userid,
+        allocatorMail:Global.usermail
     }
 
     /* For Pagination Control*/

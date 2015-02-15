@@ -8,37 +8,41 @@ var mongoose = require('mongoose'),
     _ = require('underscore'),
     nodemailer = require('nodemailer');
 
-    function sendMail (argument) {
-               // create reusable transporter object using SMTP transport 
-    var transporter = nodemailer.createTransport({
+function sendMail(assetData, allocatorData) {
+    // create reusable transporter object using SMTP transport 
+    var transporter = nodemailer.createTransport("SMTP",{
         service: 'Gmail',
         auth: {
             user: 'mspassettracker@gmail.com',
             pass: 'Ctsmsp123'
         }
     });
-     
-    // NB! No need to recreate the transporter object. You can use 
-    // the same transporter object for all e-mails 
-     
+    
+    var mailBody = '<div>Hi '+assetData.owner_name+',</div>'+
+        '</br><div>    Please note that the following '+assetData.asset_type+' has been assigned to you by '+allocatorData.allocatorName+'('+allocatorData.allocatorId+')</div>'+
+        '</br><div>Asset Name : '+assetData.asset_name+'</div>'+
+        '<div>CTS Asset Id : '+assetData.asset_cts_id+'</div>'+
+        '</br><div>Regards,</div>'+
+        '<div>Asset Tracker Team</div>';
+
     // setup e-mail data with unicode symbols 
     var mailOptions = {
-        from: 'mspassettracker ✔ <mspassettracker@gmail.com>', // sender address 
-        to: 'sujitha.n@cognizant.com', // list of receivers 
-        subject: 'Hello ✔', // Subject line 
-        text: 'Hello world ✔', // plaintext body 
-        html: '<b>Hello world ✔</b>' // html body 
+        from: 'mspassettracker@gmail.com', // sender address 
+        to: 'sujitha.n@cognizant.com', // owner_email
+        cc: allocatorData.allocatorMail+'; maheishsundhar.kp@cognizant.com',
+        subject: 'CTS AssetTracker - Asset \''+assetData.asset_name+'\' has been mapped to you', // Subject line 
+        html:mailBody 
     };
-     
+
     // send mail with defined transport object 
-    transporter.sendMail(mailOptions, function(error, info){
-        if(error){
-            console.log(error);
-        }else{
-            console.log('Message sent: ' + info.response);
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log('Error sending email : '+error);
+        } else {
+            console.log('Message sent: ' + info);
         }
     });
-    }
+}
 
 
 
@@ -76,7 +80,12 @@ exports.update = function(req, res) {
     console.log(assets);
     assets = _.extend(assets, req.body);
     assets.save(function(err) {
+        if(req.body.isOwnerAllocate){
+            sendMail(assets, {allocatorName: req.body.allocatorName, allocatorId:req.body.allocatorId, allocatorMail:req.body.allocatorMail});
+        }
+        
         res.jsonp(assets);
+
     });
 };
 
@@ -104,14 +113,14 @@ exports.destroy = function(req, res) {
 exports.all = function(req, res) {
 
     var userId = req.query["userid"];
-    console.log("get assets for userId "+userId);
+    console.log("get assets for userId " + userId);
 
     var searchString = {};
-    
-    if(userId!='' && userId!=null){
+
+    if (userId != '' && userId != null) {
         searchString.owner_id = userId;
     }
-    
+
     var objSort = {};
     objSort["" + "FromDate"] = -1;
 

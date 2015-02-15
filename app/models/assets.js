@@ -27,6 +27,7 @@ var AssetsSchema = new Schema({
   , asset_createdDate: {type : Date, default : new Date(), trim : true}       
 
   , owner_id: {type : String, default : '', trim : true}  
+  , owner_email: {type : String, default : '', trim : true}      
   , owner_name: {type : String, default : '', trim : true}  
   , date_tagged: {type : Date, default : new Date(), trim : true}
   , owner_project: {type : String, default : '', trim : true}      

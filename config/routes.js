@@ -38,7 +38,7 @@ module.exports = function(app, auth) {
                 title: 'Signin',
                 message: 'Please enter a username and password'
             });
-        }else{
+        }else{/*
             LDAPAuth.LDAPAuth(req.param('userid'), req.param('password'), function(_LDAPresponse) {
                 console.log("login resp : " + _LDAPresponse);
                 if (_LDAPresponse == 'success') {
@@ -49,7 +49,10 @@ module.exports = function(app, auth) {
                         message: 'Invalid username/password'
                     });
                 }
-            });
+            });*/
+            
+            adminuser.find(req, res);
+            
         }
     });
 
