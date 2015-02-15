@@ -10,34 +10,46 @@ var mongoose = require('mongoose'),
 
 function sendMail(assetData, allocatorData) {
     // create reusable transporter object using SMTP transport 
-    var transporter = nodemailer.createTransport("SMTP",{
+        
+    var transporter = nodemailer.createTransport("SMTP", {
         service: 'Gmail',
         auth: {
             user: 'mspassettracker@gmail.com',
             pass: 'Ctsmsp123'
         }
     });
-    
-    var mailBody = '<div>Hi '+assetData.owner_name+',</div>'+
-        '</br><div>    Please note that the following '+assetData.asset_type+' has been assigned to you by '+allocatorData.allocatorName+'('+allocatorData.allocatorId+')</div>'+
-        '</br><div>Asset Name : '+assetData.asset_name+'</div>'+
-        '<div>CTS Asset Id : '+assetData.asset_cts_id+'</div>'+
-        '</br><div>Regards,</div>'+
+
+    /*var smtpTransport = require('nodemailer-smtp-transport');    
+      var transporter = nodemailer.createTransport(smtpTransport({
+        host: 'CTSINCHNSXCAB.cts.com',
+        port: 995,
+        secure:'true',
+        auth: {
+            user: 'maheishsundhar.kp@cognizant.com',
+            pass: ''
+        }
+    }));*/
+
+    var mailBody = '<div>Hi ' + assetData.owner_name + ',</div>' +
+        '</br><div>    Please note that the following ' + assetData.asset_type + ' has been assigned to you by ' + allocatorData.allocatorName + '(' + allocatorData.allocatorId + ')</div>' +
+        '</br><div>Asset Name : ' + assetData.asset_name + '</div>' +
+        '<div>CTS Asset Id : ' + assetData.asset_cts_id + '</div>' +
+        '</br><div>Regards,</div>' +
         '<div>Asset Tracker Team</div>';
 
     // setup e-mail data with unicode symbols 
     var mailOptions = {
         from: 'mspassettracker@gmail.com', // sender address 
         to: 'sujitha.n@cognizant.com', // owner_email
-        cc: allocatorData.allocatorMail+'; maheishsundhar.kp@cognizant.com',
-        subject: 'CTS AssetTracker - Asset \''+assetData.asset_name+'\' has been mapped to you', // Subject line 
-        html:mailBody 
+        cc: allocatorData.allocatorMail + '; maheishsundhar.kp@cognizant.com',
+        subject: 'CTS AssetTracker - Asset \'' + assetData.asset_name + '\' has been mapped to you', // Subject line 
+        html: mailBody
     };
 
     // send mail with defined transport object 
     transporter.sendMail(mailOptions, function(error, info) {
         if (error) {
-            console.log('Error sending email : '+error);
+            console.log('Error sending email : ' + error);
         } else {
             console.log('Message sent: ' + info);
         }
@@ -80,10 +92,14 @@ exports.update = function(req, res) {
     console.log(assets);
     assets = _.extend(assets, req.body);
     assets.save(function(err) {
-        if(req.body.isOwnerAllocate){
-            sendMail(assets, {allocatorName: req.body.allocatorName, allocatorId:req.body.allocatorId, allocatorMail:req.body.allocatorMail});
+        if (req.body.isOwnerAllocate) {
+            sendMail(assets, {
+                allocatorName: req.body.allocatorName,
+                allocatorId: req.body.allocatorId,
+                allocatorMail: req.body.allocatorMail
+            });
         }
-        
+
         res.jsonp(assets);
 
     });
