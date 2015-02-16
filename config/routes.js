@@ -38,20 +38,20 @@ module.exports = function(app, auth) {
                 title: 'Signin',
                 message: 'Please enter a username and password'
             });
-        }else{/*
-            LDAPAuth.LDAPAuth(req.param('userid'), req.param('password'), function(_LDAPresponse) {
+        }else{
+            LDAPAuth.LDAPAuth(req.param('userid'), req.param('password'), function(_LDAPresponse, _userDetail) {
                 console.log("login resp : " + _LDAPresponse);
                 if (_LDAPresponse == 'success') {
-                    adminuser.find(req, res);
+                    adminuser.find(req, res, _userDetail);
                 } else if (_LDAPresponse == 'failure') {
                     res.render('users/ccsignin', {
                         title: 'Signin',
                         message: 'Invalid username/password'
                     });
                 }
-            });*/
+            });
             
-            adminuser.find(req, res);
+           //adminuser.find(req, res);
             
         }
     });

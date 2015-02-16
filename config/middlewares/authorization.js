@@ -8,7 +8,8 @@ exports.requiresLogin = function(req, res, next) {
             username: JSON.stringify(req.session.username),
             userid: JSON.stringify(req.session.userid),
             role: JSON.stringify(req.session.role),
-            region: JSON.stringify(req.session.region)
+            region: JSON.stringify(req.session.region),
+            usermail:JSON.stringify(req.session.usermail),
         });
     } else {
         req.session.errorMessage = '';

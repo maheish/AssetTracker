@@ -36,7 +36,7 @@ exports.create = function(req, res) {
 /**
  * Create an admin user
  */
-exports.find = function(req, res) {
+exports.find = function(req, res, _userDetail) {
     console.log(req.param('userid'));
     AdminUsers.findOne({
         'userid': req.param('userid')
@@ -45,18 +45,20 @@ exports.find = function(req, res) {
             console.log("Error getting user");
         } else if (user == null) {
 
-            req.session.username = req.param('userid');
+            req.session.username = _userDetail.name.toString();
             req.session.userid = req.param('userid');
+            req.session.usermail = _userDetail.mail.toString();
             req.session.role = '0';
-            req.session.region = 'CHN-DLF';
+            req.session.region = _userDetail.physicalDeliveryOfficeName.toString();
             res.redirect('/');
 
         } else {
             console.log('check for adminUser ' + user);
-            req.session.username = user.userid;
+            req.session.username = _userDetail.name.toString();
             req.session.userid = user.userid;
+            req.session.usermail = _userDetail.mail.toString();
             req.session.role = user.role;
-            req.session.region = 'CHN-DLF';
+            req.session.region = _userDetail.physicalDeliveryOfficeName.toString();
             res.redirect('/');
         }
 

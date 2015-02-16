@@ -1,7 +1,7 @@
 window.app.factory("Global", function(){
 	var _this = this;
 	
-    _this._data = { username: window.username, userid: window.userid, role:window.role,region: window.region, usermail: window.username};
+    _this._data = { username: window.username, userid: window.userid, role:window.role,region: window.region, usermail: window.usermail};
 
 	return _this._data;
 });
