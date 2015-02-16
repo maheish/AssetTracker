@@ -31,7 +31,7 @@ function sendMail(assetData, allocatorData) {
     }));*/
 
     var mailBody = '<div>Hi ' + assetData.owner_name + ',</div>' +
-        '</br><div>    Please note that the following ' + assetData.asset_type + ' has been assigned to you by ' + allocatorData.allocatorName + '(' + allocatorData.allocatorId + ')</div>' +
+        '</br><div>    Please note that the following ' + assetData.asset_type + ' device has been assigned to you by ' + allocatorData.allocatorName + '(' + allocatorData.allocatorId + ')</div>' +
         '</br><div>Asset Name : ' + assetData.asset_name + '</div>' +
         '<div>CTS Asset Id : ' + assetData.asset_cts_id + '</div>' +
         '</br><div>Regards,</div>' +
@@ -40,8 +40,8 @@ function sendMail(assetData, allocatorData) {
     // setup e-mail data with unicode symbols 
     var mailOptions = {
         from: 'mspassettracker@gmail.com', // sender address 
-        to: 'sujitha.n@cognizant.com', // owner_email
-        cc: allocatorData.allocatorMail + '; maheishsundhar.kp@cognizant.com',
+        to: allocatorData.ownerMail,
+        cc: allocatorData.allocatorMail + ', maheishsundhar.kp@cognizant.com',
         subject: 'CTS AssetTracker - Asset \'' + assetData.asset_name + '\' has been mapped to you', // Subject line 
         html: mailBody
     };
@@ -94,6 +94,7 @@ exports.update = function(req, res) {
     assets.save(function(err) {
         if (req.body.isOwnerAllocate) {
             sendMail(assets, {
+                ownerMail: req.body.owner_mail,
                 allocatorName: req.body.allocatorName,
                 allocatorId: req.body.allocatorId,
                 allocatorMail: req.body.allocatorMail
