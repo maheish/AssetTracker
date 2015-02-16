@@ -44,6 +44,7 @@ exports.find = function(req, res, _userDetail) {
         if (err) {
             console.log("Error getting user");
         } else if (user == null) {
+            
 
             req.session.username = _userDetail.name.toString();
             req.session.userid = req.param('userid');

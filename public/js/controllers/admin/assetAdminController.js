@@ -4,7 +4,7 @@
 
 
 // To Create Blogs
-function AssetAdminController($scope, $route, $modal, $routeParams, Global, Assets) {
+function AssetAdminController($scope, $http, $route, $modal, $routeParams, Global, Assets) {
 
     /***********************************************************************************
     Static Contents for Assets Page
@@ -13,7 +13,7 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
 
     $scope.submitted = false;
     $scope.allocatesubmitted = false;
-    $scope.allocateAssetId='';
+    $scope.allocateAssetId = '';
 
     $scope.addEditMode = '';
 
@@ -70,11 +70,11 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
     $scope.owner = {
         owner_id: '',
         owner_name: '',
-        owner_mail:'',
+        owner_mail: '',
         isOwnerAllocate: true,
         allocatorName: Global.username,
-        allocatorId:Global.userid,
-        allocatorMail:Global.usermail
+        allocatorId: Global.userid,
+        allocatorMail: Global.usermail
     }
 
     /* For Pagination Control*/
@@ -139,95 +139,117 @@ function AssetAdminController($scope, $route, $modal, $routeParams, Global, Asse
             return;
 
         Assets.update({
-            assetId: $scope.asset._id
-        }, $scope.asset,
-        function(response) {
-            alert("Asset Updated Successfully");
+                assetId: $scope.asset._id
+            }, $scope.asset,
+            function(response) {
+                alert("Asset Updated Successfully");
+            });
+    };
+
+
+    /*Function to delete assets to the selected region*/
+    $scope.deleteAsset = function(index) {
+        var asset = $scope.assetDataObject[index];
+
+        Assets.delete({
+            assetId: asset._id
+        }, function() {
+            $scope.assetDataObject.splice(index, 1);
+            alert("Asset Deleted Successfully");
+            //$window.location.reload();
         });
-};
+    };
 
 
-/*Function to delete assets to the selected region*/
-$scope.deleteAsset = function(index) {
-    var asset = $scope.assetDataObject[index];
+    $scope.loadAssets = function(index) {
+        Assets.query({
+            // 'eventId': $scope.events[index]._id
+        }, function(response) {
+            $scope.assetDataObject = response;
+        });
+    };
 
-    Assets.delete({
-        assetId: asset._id
-    }, function() {
-        $scope.assetDataObject.splice(index, 1);
-        alert("Asset Deleted Successfully");
-        //$window.location.reload();
-    });
-};
+    $scope.loadAssets();
 
+    $scope.checkUserId = function() {
+        if($scope.owner.owner_id!=''){
+            $http.get('/getUserData', {
+                params: {
+                    searchid: $scope.owner.owner_id
+                }
+            }).success(function(_data){
+                console.log(_data);
+                if(_data!= {}){
+                    $scope.owner.owner_name = _data.name.toString();
+                    $scope.owner.owner_mail = _data.mail.toString();
+                }else{
+                    alert('An error occurred while fetching data! You can continue to enter the fields manually');
+                }
+            }).error(function(_e){
+                alert('An error occurred while fetching data! You can continue to enter the fields manually');
+            });
+        }else{
+            alert('Please fill the Associate id field');
+        }
+    };
 
-$scope.loadAssets = function(index) {
-    Assets.query({
-        // 'eventId': $scope.events[index]._id
-    }, function(response) {
-        $scope.assetDataObject = response;
-    });
-};
+    $scope.assignAssetId = function(id) {
+        $scope.allocateAssetId = id;
+    }
 
-$scope.loadAssets();
+    /*To aloocate assets  by admin */
+    $scope.allocateAsset = function() {
 
-$scope.assignAssetId=function(id) {
-   $scope.allocateAssetId=id;
-}
-
-/*To aloocate assets  by admin */
-$scope.allocateAsset = function() {
-
-    $scope.allocatesubmitted = true;
+        $scope.allocatesubmitted = true;
 
         if ($scope.allocateform.$invalid)
             return;
 
-     Assets.update({
-            assetId: $scope.allocateAssetId
-        }, $scope.owner,
-        function(response) {
-            alert("Asset Allocated Succesfully");
-            $('#allocateDialog').modal('hide');
-            $scope.loadAssets();
-        });
-    
-};
-/*To open modal dialog*/
+        Assets.update({
+                assetId: $scope.allocateAssetId
+            }, $scope.owner,
+            function(response) {
+                alert("Asset Allocated Succesfully");
+                $('#allocateDialog').modal('hide');
+                $scope.loadAssets();
+            });
 
-$scope.open = function(index) {
+    };
+    /*To open modal dialog*/
 
-    $scope.articleIndex = index;
+    $scope.open = function(index) {
 
-    var modalInstance = $modal.open({
-        templateUrl: 'deleteDialog-Admin',
-        controller: ModalInstanceCtrl,
-        resolve: {
-            items: function() {
+        $scope.articleIndex = index;
 
+        var modalInstance = $modal.open({
+            templateUrl: 'deleteDialog-Admin',
+            controller: ModalInstanceCtrl,
+            resolve: {
+                items: function() {
+
+                }
             }
-        }
 
-    });
-    modalInstance.result.then(function(selectedItem) {
-        $scope.remove($scope.articleIndex);
+        });
+        modalInstance.result.then(function(selectedItem) {
+            $scope.remove($scope.articleIndex);
 
-    }, function() {
-        $log.info('Modal dismissed at: ' + new Date());
+        }, function() {
+            $log.info('Modal dismissed at: ' + new Date());
 
-    });
+        });
 
-};
+    };
 
 
-$scope.openAddWindow = function(index) {
-    $scope.addEditMode = 'Add';
-}    
-    
-$scope.openEditWindow = function(index) {
-    $scope.addEditMode = 'Edit';
-    $scope.asset = $scope.assetDataObject[index];
-}
+    $scope.openAddWindow = function(index) {
+        $scope.addEditMode = 'Add';
+    }
+
+    $scope.openEditWindow = function(index) {
+        $scope.addEditMode = 'Edit';
+        $scope.asset = $scope.assetDataObject[index];
+    }
 
 }
 
