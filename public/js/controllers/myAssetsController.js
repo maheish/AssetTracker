@@ -12,6 +12,7 @@ function MyAssetsController($scope, Assets, Global) {
     $scope.owner = {
         owner_id: '',
         owner_name: '',
+        owner_mail:'',
         isOwnerAllocate: true,
         allocatorName: Global.username,
         allocatorId: Global.userid,
