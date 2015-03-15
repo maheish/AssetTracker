@@ -11,12 +11,24 @@ var mongoose = require('mongoose'),
 function sendMail(assetData, allocatorData) {
     // create reusable transporter object using SMTP transport 
         
-    var transporter = nodemailer.createTransport("SMTP", {
-        service: 'Gmail',
+   var transporter = nodemailer.createTransport("SMTP", {
+        //service: 'Gmail',
+                                host: "CTSINCHNSXMBK.cts.com",
+                                secureConnection:true,
+                                port:587,
+                                
+                                
         auth: {
-            user: 'mspassettracker@gmail.com',
-            pass: 'Ctsmsp123'
-        }
+            //user: 'mspassettracker@gmail.com',
+            //pass: 'Ctsmsp123'
+            user: 'venkatesh.m@cognizant.com',
+            pass: 'venkat9894__'
+        },
+       debug: true,
+         tls:{
+         
+          ciphers:'SSLv3'
+          }
     });
 
     /*var smtpTransport = require('nodemailer-smtp-transport');    
@@ -39,7 +51,7 @@ function sendMail(assetData, allocatorData) {
 
     // setup e-mail data with unicode symbols 
     var mailOptions = {
-        from: 'mspassettracker@gmail.com', // sender address 
+        from: 'venkatesh.m@cognizant.com', // sender address 
         to: allocatorData.ownerMail,
         cc: allocatorData.allocatorMail + ', maheishsundhar.kp@cognizant.com',
         subject: 'CTS AssetTracker - Asset \'' + assetData.asset_name + '\' has been mapped to you', // Subject line 
@@ -48,12 +60,14 @@ function sendMail(assetData, allocatorData) {
 
     // send mail with defined transport object 
     transporter.sendMail(mailOptions, function(error, info) {
+        console.log("Sending Mail....");
         if (error) {
             console.log('Error sending email : ' + error);
         } else {
             console.log('Message sent: ' + info);
         }
     });
+    
 }
 
 

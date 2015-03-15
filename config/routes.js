@@ -9,6 +9,7 @@ module.exports = function(app, auth) {
 
     app.get('/', auth.requiresLogin, ccusers.signin);
     app.get('/ccsignin', ccusers.signin);
+    app.get('/signout', ccusers.signout);
 
 
 

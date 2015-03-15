@@ -26,6 +26,11 @@ border-radius: 0px;
     color:white
 }
 
+.navbar-nav>li>a{
+    padding-top:17px;
+    padding-bottom:17px;
+}
+
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus{
     color: #335C85;
     background-color: white;

@@ -10,7 +10,18 @@ console.log("req.errorMessage "+req.session.errorMessage);
   });
 };
 
-
+exports.signout = function (req, res) {
+     req.session.username='';
+     req.session.usermail='';
+     req.session.role='';
+     req.session.userid='';
+     req.session.region='';
+     req.session.password='';
+    
+    res.redirect('/');
+    
+     
+};
 /**
  * Session to routes to root
  */
