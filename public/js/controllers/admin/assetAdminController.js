@@ -123,6 +123,11 @@ function AssetAdminController($scope, $http, $route, $modal, $routeParams, Globa
         if ($scope.assetsform.$invalid)
             return;
 
+        
+        $scope.owner.owner_id =  Global.userid;
+        $scope.owner.owner_name=  Global.username;
+        $scope.owner.owner_mail=  Global.usermail;
+        
         var asset = new Assets($scope.asset);
 
         asset.$save(function(response) {
@@ -194,6 +199,10 @@ function AssetAdminController($scope, $http, $route, $modal, $routeParams, Globa
     };
 
     $scope.assignAssetId = function(id) {
+        $scope.owner.owner_id.$setUntouched();
+        $scope.owner.owner_name.$setUntouched();
+        $scope.owner.owner_mail.$setUntouched();
+        
         $scope.allocateAssetId = id;
     }
 

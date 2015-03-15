@@ -4,7 +4,7 @@
 
 
 // Defining contents to be displayed in detail page
-function DetailController($scope, $routeParams) {
+function DetailController($scope, $routeParams,$filter) {
     //alert($routeParams.item);
     var assetDetail = JSON.parse($routeParams.item);
 
@@ -24,7 +24,7 @@ function DetailController($scope, $routeParams) {
     $scope.ownerFields = {
         owner_id: assetDetail.owner_id,
         owner_name: assetDetail.owner_name,
-        date_tagged: assetDetail.date_tagged,
+        date_tagged: $filter('date')(assetDetail.date_tagged , "dd/MM/yyyy  h:mma" ,'UTC'),
         owner_project: assetDetail.owner_project
     };
     $scope.params = 1;

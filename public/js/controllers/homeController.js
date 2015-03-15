@@ -16,7 +16,7 @@ function HomeController($scope,$http,Global,Assets) {
         height: "300px",
         width: "500px"
     };
-
+    $scope.count = 0;
     $scope.ostype='';
     //$scope.mobileObject = [{devicename:'iPhone6',ostype:'iOS'},{devicename:'S3',ostype:'Android'}];
 

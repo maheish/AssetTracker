@@ -22,6 +22,9 @@ window.app.config(['$routeProvider',
         when('/signout', {
             templateUrl: 'views/myassets.html'
         }).
+        when('/adminStories', {
+            templateUrl: 'views/admin/stories.html'
+        }).
         otherwise({
             redirectTo: '/'
         });

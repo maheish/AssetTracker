@@ -117,20 +117,22 @@
                     <form name="userform" novalidate role="form" >
                         <div class="row ">
                             <div class="col-md-12 col-sm-12  form-group">
-                                <label class="control-label col-sm-4 col-md-4">Associate Name</label>
+                                <label class="control-label col-sm-4 col-md-4">Associate Id</label>
                                 <div class="col-sm-6 col-md-6 ">
-                                    <input id="usernameText" type="text" size="30" name="name" data-ng-model="user.username"    class="form-control" required>
-                                    <small class="error" ng-show="userform.name.$error.required && submitted">Required!</small>
+                                    <input id="usernameText" type="text" size="30" name="id" data-ng-model="user.userid"    class="form-control" required>
+                                    <small class="error" ng-show="userform.id.$error.required && submitted">Required!</small>
                                 </div>
+                                <button class="glyphicon glyphicon-eye-open" style="top:9px; margin:0px" ng-click="checkUserId()">
+                        </button>
                             </div>
                         </div>
 
                         <div class="row ">
                             <div class="col-md-12 col-sm-12  form-group">
-                                <label class="control-label col-sm-4 col-md-4">Associate Id</label>
+                                <label class="control-label col-sm-4 col-md-4">Associate Name</label>
                                 <div class="col-sm-6 col-md-6 ">
-                                    <input id="usernameText" type="text" size="30" name="id" data-ng-model="user.userid"    class="form-control" required>
-                                    <small class="error" ng-show="userform.id.$error.required && submitted">Required!</small>
+                                    <input id="usernameText" type="text" size="30" name="name" data-ng-model="user.username"    class="form-control" required>
+                                    <small class="error" ng-show="userform.name.$error.required && submitted">Required!</small>
                                 </div>
                             </div>
                         </div>

@@ -6,7 +6,7 @@
             <input class="searchbar .col-md-6 .col-lg-6 .col-sm-6" style="margin:0px 0px 5px 5px; top:5px; float:right" type="text" placeholder="Search..." ng-model="assetSearchText">
         </div>
 
-        <div class="assetListTableBorder" style="margin-top: 9px;">
+        <div class="assetListTableBorder" style="margin-top: 9px;" ng-show="assetDataObject.length">
             <div ng-class-even="'evenRow'" ng-class-odd="'oddRow'" id="assetTableRow" data-ng-repeat="item in assetDataObject | filter:ostype |filter:assetSearchText">
                 
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 content-container rowLabel myAssetsRowLabel" style="margin-left:0px; ver">
@@ -26,6 +26,7 @@
             </div>
 
         </div>
+        <div id="assetTableRow" class="bg-danger text-danger" style="margin-top: 9px;padding : 15px;" ng-hide="assetDataObject.length">No device available</div>
     </div>
     
     <!-- Allocate dialog-->

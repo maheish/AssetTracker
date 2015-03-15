@@ -35,8 +35,8 @@
                 </div>
 
             </div>
-
+            <p class="hide">{{count = (assetDataObject | filter:ostype).length >0 ? 1 : 0}}</p>
         </div>
-
+        <div class="bg-danger text-danger" style="margin-top: 9px;padding : 15px;" ng-hide="count">No device available</div>
     </div>
 </div>

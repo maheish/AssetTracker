@@ -1,5 +1,5 @@
 // To Create Blogs
-function UserAdminController($scope,Users,Global) {
+function UserAdminController($scope,Users,Global,$http) {
 
     /***********************************************************************************
     Static Contents for feedback Page
@@ -79,4 +79,25 @@ function UserAdminController($scope,Users,Global) {
 
     $scope.loadUser();
 
+    $scope.checkUserId = function() {
+        if($scope.user.userid!=''){
+            $http.get('/getUserData', {
+                params: {
+                    searchid: $scope.user.userid
+                }
+            }).success(function(_data){
+                console.log(_data);
+                if(_data!= {}){
+                    $scope.user.username = _data.name.toString();
+                }else{
+                    alert('An error occurred while fetching data! You can continue to enter the fields manually');
+                }
+            }).error(function(_e){
+                alert('An error occurred while fetching data! You can continue to enter the fields manually');
+            });
+        }else{
+            alert('Please fill the Associate id field');
+        }
+    };
+    
 }

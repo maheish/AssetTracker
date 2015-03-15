@@ -255,8 +255,9 @@
                         <div class="col-md-12 col-sm-12  form-group">
                             <label class="control-label col-sm-4 col-md-4">Associate Mail</label>
                             <div class="col-sm-6 col-md-6 ">
-                                <input type="text" size="30" name="ownermail" data-ng-model="owner.owner_mail" class="form-control" required>
+                                <input type="email" size="30" name="ownermail" data-ng-model="owner.owner_mail" class="form-control" required>
                                 <small class="error" ng-show="allocateform.ownermail.$error.required && allocatesubmitted">Required!</small>
+                                <small class="error" ng-show="allocateform.ownermail.$error.email && allocatesubmitted">Enter valid email!</small>
                             </div>
                         </div>
                     </div>        
